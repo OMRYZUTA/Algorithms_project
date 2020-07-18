@@ -2,6 +2,27 @@
 #include "Queue.h"
 #pragma warning(disable : 4996)
 
+FlowNetwork::FlowNetwork():g(),mincut()
+{
+     maxFlow  = currFlow=0;
+}
+
+FlowNetwork::FlowNetwork(Graph g, Cut mincut, int maxflow, int currflow):g(g),mincut(mincut)
+{
+     this->maxFlow = maxflow;
+     this->currFlow = currflow;
+}
+
+FlowNetwork::FlowNetwork(FlowNetwork& other):g(other.g),mincut(other.mincut)
+{
+     this->maxFlow = other.maxFlow;
+     this->currFlow =other.currFlow;
+}
+
+FlowNetwork::~FlowNetwork()
+{
+}
+
 List FlowNetwork::BFS()
 {
      Queue q;

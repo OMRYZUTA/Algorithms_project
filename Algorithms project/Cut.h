@@ -12,9 +12,10 @@ private:
      int sizeOfS;
      int sizeOfT; 
 public:
-     Cut();
-     Cut(int* S, int* T);
-     Cut(Cut& other);
+     Cut();//deafult c'tor
+     Cut(int* S, int* T);// c'tor
+     Cut(Cut& other);//copy c'tor
+     Cut(Cut&& other);//move c'tor
      ~Cut();
 };
 

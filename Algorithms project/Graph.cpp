@@ -2,50 +2,57 @@
 #pragma warning(disable : 4996)
 
 
-//Graph::Graph()
-//{
-//	this->adjMatrix = nullptr;
-//}
 
-Graph::Graph(int n = 0, int e = 0, int s = 0, int t = 0)  //כמו makeemptygraph
+Graph::Graph()
 {
-	this->n = n;
+	adjMatrix = nullptr;
+	numOfVertex = e = s = t = 0;
+}
+
+Graph::Graph(int numOfVertex = 0, int e = 0, int s = 0, int t = 0)  
+{
+	this->numOfVertex = numOfVertex;
 	this->e = e;
 	this->s = s;
 	this->t = t;
-	adjMatrix = new int*[n];
-	for (int row = 0; row < n; row++)
+	adjMatrix = new int*[numOfVertex]; // making space for n rows
+	for (int row = 0; row < numOfVertex; row++)
 	{
-		adjMatrix[row] = new int[n];
-		for (int column = 0; column < n; column++)
+		adjMatrix[row] = new int[numOfVertex]; //making space for n ints/ edges delete later
+		for (int column = 0; column < numOfVertex; column++)
 		{
-			adjMatrix[row][column] = 0;
+			adjMatrix[row][column] = 0;// initing
 		}
 	}
 }
 
 Graph::Graph(Graph& other)
 {
-	adjMatrix = other.adjMatrix;
-	this->n = other.n;
+	this->numOfVertex = other.numOfVertex;
 	this->e = other.e;
 	this->s = other.s;
 	this->t = other.t;
-	for (int i = 0; i < n; i++)
-		for (int k = 0; k < n; k++)
+	adjMatrix = new int* [this->numOfVertex]; // making space for n rows
+	for (int row = 0; row < numOfVertex; row++)
+	{
+		adjMatrix[row] = new int[numOfVertex]; //making space for n ints/ edges delete later
+
+	}
+	for (int i = 0; i < numOfVertex; i++)
+		for (int k = 0; k < numOfVertex; k++)
 			adjMatrix[i][k] = other.adjMatrix[i][k];
 }
 
 Graph::~Graph()
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < numOfVertex; i++)
 		delete adjMatrix[i];
 	delete adjMatrix;
 }
 
 void Graph::makeEmptyGraph(int n)
 {
-	this->n = n;
+	this->numOfVertex = n;
 	adjMatrix = new int*[n];
 	for (int row = 0; row < n; row++)
 	{
@@ -69,7 +76,7 @@ bool Graph::isAdjacent(int u, int v)
 List Graph::getAdjList(int u) // מדפיסה רשימה, לא מחזירה
 {
 	List lst;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < numOfVertex; i++)
 	{
 		if( adjMatrix[u][i]>0)
 		lst.addNodeToTail(adjMatrix[u][i]);
@@ -91,8 +98,8 @@ void Graph::removeEdge(int u, int v)
 void Graph::printGraph()
 {
 	// adding +1 to each edge in order to match the instruction.
-	for (int i = 0; i < n; i++)
-		for (int k = 0; k < n; k++)
+	for (int i = 0; i < numOfVertex; i++)
+		for (int k = 0; k < numOfVertex; k++)
 		{
 			if(adjMatrix[i][k]!= 0)
 			cout << "Edge (" << i + 1 << "," << k + 1 << ")" << " capacity: "
@@ -101,7 +108,7 @@ void Graph::printGraph()
 }
 int Graph::getNumOfVertexes()
 {
-	return n;
+	return numOfVertex;
 }
 int Graph::getSvertex() {
 	return s;

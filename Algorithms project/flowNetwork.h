@@ -12,20 +12,15 @@ class FlowNetwork
 {
 private:
      Graph g;
-     int maxflow;
-     int currflow;
+     int maxFlow;
+     int currFlow;
      Cut mincut;
 public:
      FlowNetwork();
-   /*  FlowNetWork(Graph g, int maxflow = 0, int currflow = 0);
-     FlowNetWork(FlowNetWork& other);
-     ~FlowNetWork();*/
-
+     FlowNetwork(Graph g, Cut mincut, int maxflow = 0, int currflow = 0);
+     FlowNetwork(FlowNetwork& other);
+     ~FlowNetwork();
      List BFS();
-
-
-
-
 };
 
 

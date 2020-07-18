@@ -16,23 +16,50 @@ using namespace std;
 // argc count how much arguments have been sent to main
 // argv is the arguments itself, represented as string
 // it's comfortable to debug this program with cmd : Algorithms_project input.txt
-void main(int argc, char* argv[])
+
+// we will save this main for the end of the project, handling with file
+// for the meantime, lets check every bit of code that we write
+
+//void main(int argc, char* argv[])
+//{
+//     
+//     int numOfVertex, numOfAdjes, s, t;
+//     ifstream inFile(argv[1]); // opening file called "input.txt"
+//     inFile >> numOfVertex >> numOfAdjes>> s>> t;  //init those variables
+//     Graph g1(numOfVertex, numOfAdjes, s-1, t-1); // minus 1 for 
+//     int tempV, tempU, tempC;
+//     for (int i = 0; i < numOfAdjes; i++)
+//     {
+//          inFile >> tempV >> tempU >> tempC;
+//          // in the input file the vertex starts from 1. therfor the minus 1
+//          g1.addEdge(tempV-1,tempU-1, tempC);
+//     }
+//     cout <<"num Of Vertex is: " <<numOfVertex << " num Of Adjes is: " 
+//          << numOfAdjes << " s Vertex is: " <<s << " t  Vertex is: " <<t<<endl;
+//     g1.printGraph();
+//     inFile.close();
+//
+//}
+
+void main()
 {
-     
+
      int numOfVertex, numOfAdjes, s, t;
-     ifstream inFile(argv[1]); // opening file called "input.txt"
-     inFile >> numOfVertex >> numOfAdjes>> s>> t;  //init those variables
-     Graph g1(numOfVertex, numOfAdjes, s-1, t-1); // minus 1 for 
-     int tempV, tempU, tempC;
-     for (int i = 0; i < numOfAdjes; i++)
-     {
-          inFile >> tempV >> tempU >> tempC;
-          // in the input file the vertex starts from 1. therfor the minus 1
-          g1.addEdge(tempV-1,tempU-1, tempC);
-     }
-     cout <<"num Of Vertex is: " <<numOfVertex << " num Of Adjes is: " 
-          << numOfAdjes << " s Vertex is: " <<s << " t  Vertex is: " <<t<<endl;
-     g1.printGraph();
-     inFile.close();
+          ifstream inFile("input.txt"); // opening file called "input.txt"
+          inFile >> numOfVertex >> numOfAdjes>> s>> t;  //initialize those variables
+          Graph g1(numOfVertex, numOfAdjes, s-1, t-1); // minus 1 for 
+          int tempV, tempU, tempC;
+          for (int i = 0; i < numOfAdjes; i++)
+          {
+               inFile >> tempV >> tempU >> tempC;
+               // in the input file the vertex starts from 1. therefor the minus 1
+               g1.addEdge(tempV-1,tempU-1, tempC);
+          }
+          cout <<"number Of Vertexes is: " <<numOfVertex <<
+               " number Of edges is: " 
+               << numOfAdjes << " s Vertex is: " <<s 
+               << " t  Vertex is: " <<t<<endl;
+          g1.printGraph();
+          inFile.close();
 
 }
