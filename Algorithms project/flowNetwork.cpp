@@ -21,7 +21,7 @@ FlowNetwork::FlowNetwork(FlowNetwork& other):g(other.g),mincut(other.mincut)
 
 FlowNetwork::~FlowNetwork()
 {
-
+	//aaaaa
 }
 
 List FlowNetwork::BFS()
