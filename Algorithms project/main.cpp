@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <fstream>
 #include <string>
-#include "Graph.h"
 
+
+#include "FlowNetwork.h"
 using namespace std;
 
 // This program gets text file with graph and the graph data.
@@ -60,6 +61,9 @@ void main()
                << numOfAdjes << " s Vertex is: " <<s 
                << " t  Vertex is: " <<t<<endl;
           g1.printGraph();
+          FlowNetwork flowi(g1);
+          List listi = flowi.BFS();
+          listi.printList();
           inFile.close();
 
 }

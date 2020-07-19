@@ -18,6 +18,7 @@ public:
 	~Node();                                      // d'tor
 	void insertAfter(Node* newNode);              // Insert Node after current Node
 	Node* deleteAfter(Node* newNode);             // Delete Node after current Node
+	Node* getNext();
 	int getData();
 	friend class List;
 	friend class Queue;

@@ -73,13 +73,13 @@ bool Graph::isAdjacent(int u, int v)
 		return false;
 }
 
-List Graph::getAdjList(int u) // מדפיסה רשימה, לא מחזירה
+List Graph::getAdjList(int u)
 {
 	List lst;
 	for (int i = 0; i < numOfVertex; i++)
 	{
 		if( adjMatrix[u][i]>0)
-		lst.addNodeToTail(adjMatrix[u][i]);
+		lst.addNodeToTail(i);// save in the list all the neighbors of u
 	}
 	return lst;
 }

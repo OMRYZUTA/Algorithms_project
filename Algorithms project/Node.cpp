@@ -37,6 +37,10 @@ Node* Node::deleteAfter(Node* newNode)
 	next = temp->next;   // If the current Node is NOT the last Node
 	return temp;
 }
+Node* Node::getNext()
+{
+	return next;
+}
 int Node::getData()
 {
 	return data;

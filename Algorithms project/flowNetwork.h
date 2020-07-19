@@ -17,7 +17,7 @@ private:
      Cut mincut;
 public:
      FlowNetwork();
-     FlowNetwork(Graph g, Cut mincut, int maxflow = 0, int currflow = 0);
+     FlowNetwork(Graph g, int maxflow = 0, int currflow = 0);
      FlowNetwork(FlowNetwork& other);
      ~FlowNetwork();
      List BFS();

@@ -10,7 +10,7 @@ private:
 	int numOfVertex, e, s, t;  // n - numofvertex, e - numofedges             
 
 public:
-	Graph();                     // deafult c'tor
+	Graph();             // deafult c'tor
 	Graph(int n, int e ,int s, int t);         // c'tor with arguments
 	Graph(Graph& other);        // copy c'tor
 	~Graph();      // d'tor 

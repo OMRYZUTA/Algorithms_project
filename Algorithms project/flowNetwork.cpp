@@ -7,7 +7,7 @@ FlowNetwork::FlowNetwork():g(),mincut()
      maxFlow  = currFlow=0;
 }
 
-FlowNetwork::FlowNetwork(Graph g, Cut mincut, int maxflow, int currflow):g(g),mincut(mincut)
+FlowNetwork::FlowNetwork(Graph g, int maxflow, int currflow):g(g),mincut()
 {
      this->maxFlow = maxflow;
      this->currFlow = currflow;
@@ -21,6 +21,7 @@ FlowNetwork::FlowNetwork(FlowNetwork& other):g(other.g),mincut(other.mincut)
 
 FlowNetwork::~FlowNetwork()
 {
+
 }
 
 List FlowNetwork::BFS()
@@ -37,30 +38,33 @@ List FlowNetwork::BFS()
           q.enqueue(g.getSvertex());
           dArr[g.getSvertex()] = 0;
           int u;// temp vertex, inpired by page 98 in the book
+          int v;
           while (!q.isEmpty())
           {
                u = q.dequeue(); // handling this vertex now
-               List ls= g.getAdjList(u);// get adjecency list
+               List ls= g.getAdjList(u);// get adjacency list
                Node* tempNode = ls.getHead(); //in order to go through the list
                while (tempNode)
                {
-                    if (dArr[tempNode->getData()] == -1) // -1= infinity
+                    v = tempNode->getData();
+                    if (dArr[v] == -1) // -1= infinity
                     {
-                         dArr[tempNode->getData()] = dArr[u] + 1;// d[v]=d[u]+1
-                         pArr[tempNode->getData()] = u;
-                         q.enqueue(tempNode->getData());//q.Enqueue(v)
+                         dArr[v] = dArr[u] + 1;// d[v]=d[u]+1
+                         pArr[v] = u;
+                         q.enqueue(v);//q.Enqueue(v)
                          
                     }
+                    tempNode = tempNode->getNext();
                }
           }
-          List track; //builiding the track from parents array
+          List track; //building the track from parents array
           track.addNodeToHead(g.getTvertex());// adding t to be eventually the tail
           int tempParent = pArr[g.getTvertex()]; 
-          while (pArr[tempParent]!=-1)
+          while (tempParent!=-1)
           {
-               track.addNodeToHead(pArr[tempParent]);
+               track.addNodeToHead(tempParent);
                tempParent = pArr[tempParent];
           }
-          track.addNodeToHead(g.getSvertex()); // because when we get to s we break the loop
+         
           return track;
 }
