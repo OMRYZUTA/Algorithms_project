@@ -63,7 +63,9 @@ void main()
           g1.printGraph();
           FlowNetwork flowi(g1);
           List listi = flowi.BFS();
-          listi.printList();
+          // checking list copy constructor:
+          List List2(listi);
+         List2.printList();
           inFile.close();
 
 }

@@ -3,19 +3,19 @@
 
 Node::Node()
 {
-	this->next = nullptr;
+	this->m_next = nullptr;
 }
 
 Node::Node(int d, Node* nextNode)
 {
-	this->data = d;	
-	this->next = nextNode;
+	this->m_data = d;	
+	this->m_next = nextNode;
 }
 
 Node::Node(Node* other)
 {
-	this->data = other->data;
-	this->next = other->next;
+	this->m_data = other->m_data;
+	this->m_next = other->m_next;
 }
 
 Node::~Node()
@@ -24,24 +24,24 @@ Node::~Node()
 
 void Node::insertAfter(Node* newNode)
 {
-	newNode->next = next;
-	next = newNode;
+	newNode->m_next = m_next;
+	m_next = newNode;
 }
 
 Node* Node::deleteAfter(Node* newNode)
 {
-	Node* temp = next;
-	if (next == nullptr) // If the current Node is the last Node
+	Node* temp = m_next;
+	if (m_next == nullptr) // If the current Node is the last Node
 		return nullptr;
 
-	next = temp->next;   // If the current Node is NOT the last Node
+	m_next = temp->m_next;   // If the current Node is NOT the last Node
 	return temp;
 }
 Node* Node::getNext()
 {
-	return next;
+	return m_next;
 }
 int Node::getData()
 {
-	return data;
+	return m_data;
 }

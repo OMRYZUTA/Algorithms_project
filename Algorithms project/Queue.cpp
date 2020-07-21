@@ -37,8 +37,8 @@ bool Queue::isEmpty()
 void Queue::enqueue(int n)
 {
 	Node* tmp = new Node;
-	tmp->data = n;
-	tmp->next = nullptr;
+	tmp->m_data = n;
+	tmp->m_next = nullptr;
 
 	if (head == nullptr)
 	{
@@ -47,16 +47,16 @@ void Queue::enqueue(int n)
 	}
 	else
 	{
-		tail->next = tmp;
-		tail = tail->next;
+		tail->m_next = tmp;
+		tail = tail->m_next;
 	}
 }
 
 int Queue::dequeue()
 {
-	int data = head->data;
+	int data = head->m_data;
 	Node* tmp = head;
-	head = head->next;
+	head = head->m_next;
 	delete tmp;
 	return data;
 }

@@ -9,8 +9,8 @@ using namespace std;
 class List
 {
 private:
-	Node* head;
-	Node* tail;
+	Node* m_head;
+	Node* m_tail;
 
 public:
 	List();                                       // Default c'tor
@@ -21,6 +21,8 @@ public:
 	void addNodeToTail(int n);
 	void addNodeToHead(int n);
 	Node* getHead();
+
+	bool isEmpty();
 	void printList();              	
 };
 #endif // __LIST_H
