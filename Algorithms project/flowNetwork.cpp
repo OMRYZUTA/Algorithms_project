@@ -4,7 +4,7 @@
 
 FlowNetwork::FlowNetwork():g(),mincut()
 {
-     maxFlow  = currFlow = 0;
+     maxFlow  = currFlow = 0;//
 }
 
 FlowNetwork::FlowNetwork(Graph g, int maxflow, int currflow):g(g),mincut()
