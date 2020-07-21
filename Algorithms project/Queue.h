@@ -10,17 +10,17 @@ using namespace std;
 class Queue
 {
 private:
-	Node* head;
-	Node* tail;
+	Node* m_head;
+	Node* m_tail;
 
 public:
 	Queue();                                       // c'tor
-	Queue(Node* h, Node* t);                       // c'tor
-	Queue(Queue& other);                           // copy c'tor
+	Queue(Node* i_head, Node* i_tail);                       // c'tor
+	Queue(Queue& i_otherQueue);                           // copy c'tor
 	~Queue();                                      // d'tor
 	void makeEmpty();
 	bool isEmpty();
-	void enqueue(int n);
+	void enqueue(int i_data);
 	int dequeue();
 };
 #endif // __QUEUE_H

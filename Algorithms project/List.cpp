@@ -25,14 +25,14 @@ List::List(List& i_other)
 		Node* tempOldListNode = i_other.m_head;
 		Node* builderListNode = new Node;
 		// initializing head
-		builderListNode->m_data = tempOldListNode->getData();
+		builderListNode->setData(tempOldListNode->getData());
 		m_head = builderListNode;
 		tempOldListNode = tempOldListNode->getNext();
 		while (tempOldListNode)
 		{
-			builderListNode->m_next = new Node;
+			builderListNode->setNextNode(new Node);
 			builderListNode = builderListNode->getNext();
-			builderListNode->m_data = tempOldListNode->getData();
+			builderListNode->setData(tempOldListNode->getData());
 			tempOldListNode = tempOldListNode->getNext();
 		}
 		m_tail = builderListNode;
@@ -62,11 +62,11 @@ List::~List()
 	m_tail = nullptr;
 }
 
-void List::addNodeToTail(int n)
+void List::addNodeToTail(int i_data)
 {
 	Node* tmp = new Node;
-	tmp->m_data = n;
-	tmp->m_next = nullptr;
+	tmp->setData(i_data);
+	tmp->setNextNode(nullptr);
 
 	if (m_head == nullptr)
 	{
@@ -75,8 +75,8 @@ void List::addNodeToTail(int n)
 	}
 	else
 	{
-		m_tail->m_next = tmp;
-		m_tail = m_tail->m_next;
+		m_tail->setNextNode( tmp);
+		m_tail = m_tail->getNext();
 	}
 }
 
@@ -87,11 +87,11 @@ bool List::isEmpty()
 
 void List::printList()
 {
-	Node* currListNode = m_head;
-	while (currListNode != nullptr)
+	Node* currentListNode = m_head;
+	while (currentListNode != nullptr)
 	{
-		cout << currListNode->m_data << "  ";
-		currListNode = currListNode->m_next;
+		cout << currentListNode->getData() << "  ";
+		currentListNode = currentListNode->getNext();
 	}
 	cout << endl;
 }
@@ -104,8 +104,8 @@ Node* List::getHead()
 void List::addNodeToHead(int i_data)
 {
 	Node* tempListNode = new Node;
-	tempListNode->m_data = i_data;
-	tempListNode->m_next = nullptr;
+	tempListNode->setData(i_data);
+	tempListNode->setNextNode(nullptr);
 
 	if (m_head == nullptr)
 	{
@@ -114,7 +114,7 @@ void List::addNodeToHead(int i_data)
 	}
 	else
 	{
-		tempListNode->m_next = m_head;
+		tempListNode->setNextNode(m_head);
 		m_head = tempListNode;
 	}
 }

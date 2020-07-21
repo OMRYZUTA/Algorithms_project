@@ -3,10 +3,10 @@
 
 Cut::Cut()
 {
-	S = nullptr;
-	T = nullptr;
-	sizeOfS = 0;
-	sizeOfT = 0;
+	m_sGroupOfVertexes = nullptr;
+	m_tGroupOfVertexes = nullptr;
+	m_sizeOfS = 0;
+	m_sizeOfT = 0;
 }
 //Cut::Cut(int* S, int* T)
 //{
@@ -17,34 +17,34 @@ Cut::Cut()
 
 Cut::Cut(Cut& other)
 {
-	sizeOfS = other.sizeOfS;
-	sizeOfT = other.sizeOfT;
-	S = new int [other.sizeOfS];
-	for (int i = 0; i < other.sizeOfS; i++)
+	m_sizeOfS = other.m_sizeOfS;
+	m_sizeOfT = other.m_sizeOfT;
+	m_sGroupOfVertexes = new int [other.m_sizeOfS];
+	for (int i = 0; i < other.m_sizeOfS; i++)
 	{
-		S[i] = other.S[i];
+		m_sGroupOfVertexes[i] = other.m_sGroupOfVertexes[i];
 
 	}
-	T = new int[other.sizeOfT];
-	for (int i = 0; i < other.sizeOfT; i++)
+	m_tGroupOfVertexes = new int[other.m_sizeOfT];
+	for (int i = 0; i < other.m_sizeOfT; i++)
 	{
-		T[i] = other.T[i];
+		m_tGroupOfVertexes[i] = other.m_tGroupOfVertexes[i];
 
 	}
 }
 // to delete later?
 Cut::Cut(Cut&& other)
 {
-	sizeOfS = other.sizeOfS;
-	sizeOfT = other.sizeOfT;
-	S = other.S;
-	T = other.T;
-	other.S = nullptr;
-	other.T = nullptr;
+	m_sizeOfS = other.m_sizeOfS;
+	m_sizeOfT = other.m_sizeOfT;
+	m_sGroupOfVertexes = other.m_sGroupOfVertexes;
+	m_tGroupOfVertexes = other.m_tGroupOfVertexes;
+	other.m_sGroupOfVertexes = nullptr;
+	other.m_tGroupOfVertexes = nullptr;
 }
 
 Cut::~Cut()
 {
-	delete[] S; // if S or T is null, nothing happen
-	delete[]T;
+	delete[] m_sGroupOfVertexes; // if S or T is null, nothing happen
+	delete[]m_tGroupOfVertexes;
 }
