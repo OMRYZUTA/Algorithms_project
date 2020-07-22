@@ -48,3 +48,27 @@ Cut::~Cut()
 	delete[] m_sGroupOfVertexes; // if S or T is null, nothing happen
 	delete[]m_tGroupOfVertexes;
 }
+
+void Cut::showCut()
+{
+	cout << "Min Cut : S = ";
+	for (int i = 0; i < m_sizeOfS; i++)
+	{
+		cout << m_sGroupOfVertexes[i];
+		if (i != m_sizeOfS - 1)
+		{
+			cout <<", " ;
+		}
+		else
+		{
+			cout << ".";
+		}
+	}
+	cout << "  T = ";
+	for (int i = 0; i < m_sizeOfT; i++)
+	{
+		cout << m_tGroupOfVertexes[i];
+		cout << ", ";
+	}
+	cout << endl;
+}

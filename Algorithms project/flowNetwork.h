@@ -15,6 +15,7 @@ private:
      int m_maxFlow;
      int m_currentFlow;
      Cut m_minCut;
+     
 public:
      FlowNetwork();
      FlowNetwork(Graph i_graph, int i_maxflow = 0, int i_currentflow = 0);
