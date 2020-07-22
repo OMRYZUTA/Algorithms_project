@@ -1,9 +1,10 @@
 #ifndef __FLOW_NETWORK_H
 #define __FLOW_NETWORK_H
 #pragma warning (diable: 4996)
+
 #include <iostream>
+
 #include "Graph.h"
-#include "Cut.h"
 #include "List.h"
 
 using namespace std;

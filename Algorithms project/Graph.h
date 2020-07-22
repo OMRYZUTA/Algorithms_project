@@ -1,5 +1,7 @@
 #ifndef __GRAPH_H
 #define __GRAPH_H
+
+#include "Cut.h"
 #include "Node.h"
 #include "List.h"
 

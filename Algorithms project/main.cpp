@@ -44,6 +44,11 @@ using namespace std;
 
 void main()
 {
+ 
+
+
+
+     
 
      int numOfVertex, numOfAdjes, s, t;
           ifstream inFile("input.txt"); // opening file called "input.txt"
