@@ -16,12 +16,16 @@ public:
      Edge(int i_edgeCapacity, int i_edgeFlow, int i_edgeCf); //c'tor
      Edge(Edge& i_otherEdge);// copy c'tor
                              // we don't need any move c'tor cause there is no pointers delete later.
+
+//setters:
      void setEdgeCapacity(int i_edgeCapacity);
      void setEdgeFlow(int i_edgeFlow);// also updates cf
 
      int getEdgeCapacity();
-     int getEdgeFlow();
+     int getEdgeFlow();      // getters
      int getEdgeCf();
+
+     void resetEdge(); // make flow capacity and cf equal to zero
      
      ~Edge();// d'tor
 };

@@ -22,7 +22,10 @@ public:
      FlowNetwork(Graph i_graph, int i_maxflow = 0, int i_currentflow = 0);
      FlowNetwork(FlowNetwork& i_otherFlowNetwork);
      ~FlowNetwork();
-     List BFS();
+     void BFS();
+     List findRoutFromStoT();
+     void increaseFlow(List i_trackFromStoT);
+     int fordFulkersonMethod();
 };
 
 
