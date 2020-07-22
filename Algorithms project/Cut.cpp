@@ -3,10 +3,8 @@
 
 Cut::Cut()
 {
-	m_sGroupOfVertexes = nullptr;
-	m_tGroupOfVertexes = nullptr;
-	m_sizeOfS = 0;
-	m_sizeOfT = 0;
+
+
 }
 //Cut::Cut(int* S, int* T)
 //{
@@ -15,36 +13,72 @@ Cut::Cut()
 //}
 // to delete later?
 
-Cut::Cut(Cut& other)
+Cut::Cut(Cut& i_otherCut):m_sGroupOfVertexes(i_otherCut.m_sGroupOfVertexes)
+,m_tGroupOfVertexes(i_otherCut.m_tGroupOfVertexes)
 {
-	m_sizeOfS = other.m_sizeOfS;
-	m_sizeOfT = other.m_sizeOfT;
-	m_sGroupOfVertexes = new int [other.m_sizeOfS];
-	for (int i = 0; i < other.m_sizeOfS; i++)
-	{
-		m_sGroupOfVertexes[i] = other.m_sGroupOfVertexes[i];
-
-	}
-	m_tGroupOfVertexes = new int[other.m_sizeOfT];
-	for (int i = 0; i < other.m_sizeOfT; i++)
-	{
-		m_tGroupOfVertexes[i] = other.m_tGroupOfVertexes[i];
-
-	}
+	
 }
 // to delete later?
 Cut::Cut(Cut&& other)
 {
-	m_sizeOfS = other.m_sizeOfS;
-	m_sizeOfT = other.m_sizeOfT;
-	m_sGroupOfVertexes = other.m_sGroupOfVertexes;
-	m_tGroupOfVertexes = other.m_tGroupOfVertexes;
-	other.m_sGroupOfVertexes = nullptr;
-	other.m_tGroupOfVertexes = nullptr;
+
 }
 
 Cut::~Cut()
 {
-	delete[] m_sGroupOfVertexes; // if S or T is null, nothing happen
-	delete[]m_tGroupOfVertexes;
+
+}
+
+void Cut::showCut()
+{
+	cout << "Min Cut : S = ";
+	Node* printerNode = m_sGroupOfVertexes.getHead();
+	if (!(printerNode))
+	{
+		cout << " Error! S is empty";
+		exit(1);
+	}
+	while(printerNode){
+		cout << printerNode->getData();
+		if (printerNode->getNext())
+		{
+			cout <<", " ;
+		}
+		else
+		{
+			cout << ".";
+		}
+		printerNode = printerNode->getNext();
+	}
+	printerNode = m_tGroupOfVertexes.getHead();
+	if (!(printerNode))
+	{
+		cout << " Error! T group  is empty";
+		exit(1);
+	}
+	cout << "  T = ";
+	while(printerNode)
+	{
+		cout << printerNode->getData();
+		if (printerNode->getNext())
+		{
+			cout << ", ";
+		}
+		else
+		{
+			cout << endl;
+		}
+		printerNode = printerNode->getNext();
+	}
+
+}
+
+void Cut::addVertexToS(int i_vertex)
+{
+	m_sGroupOfVertexes.addNodeToTail(i_vertex);
+}
+
+void Cut::addVertexToT(int i_vertex)
+{
+	m_tGroupOfVertexes.addNodeToTail(i_vertex);
 }

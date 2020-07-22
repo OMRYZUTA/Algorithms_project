@@ -24,7 +24,7 @@ FlowNetwork::~FlowNetwork()
 	
 }
 
-List FlowNetwork::BFS()
+void FlowNetwork::BFS()
 {
      Queue q;
      int arrSize = m_graph.getNumOfVertexes();
@@ -42,7 +42,7 @@ List FlowNetwork::BFS()
           while (!q.isEmpty())
           {
                u = q.dequeue(); // handling this vertex now
-               List ls= m_graph.getAdjList(u);// get adjacency list
+               List ls= m_graph.getAdjListByCapacity(u);// get adjacency list
                Node* tempNode = ls.getHead(); //in order to go through the list
                while (tempNode)
                {
@@ -66,5 +66,5 @@ List FlowNetwork::BFS()
                tempParent = pArr[tempParent];
           }
          // return path from s 
-          return track;
+        //  return track;
 }
