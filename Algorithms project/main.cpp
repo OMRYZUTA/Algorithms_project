@@ -5,7 +5,7 @@
 
 
 #include "FlowNetwork.h"
-using namespace std;
+using namespace std;//
 
 // This program gets text file with graph and the graph data.
 // the program will make a Flow network
