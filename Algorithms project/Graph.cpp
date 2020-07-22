@@ -65,7 +65,7 @@ void Graph::makeEmptyGraph(int n)
 }
 
 
-bool Graph::isAdjacent(int u, int v)//
+bool Graph::isAdjacent(int u, int v)
 {
 	if (adjMatrix[u][v] > 0)
 		return true;
