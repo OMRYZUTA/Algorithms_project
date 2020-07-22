@@ -11,14 +11,14 @@ using namespace std;
 class FlowNetwork
 {
 private:
-     Graph g;
-     int maxFlow;
-     int currFlow;
-     Cut mincut;
+     Graph m_graph;
+     int m_maxFlow;
+     int m_currentFlow;
+     Cut m_minCut;
 public:
      FlowNetwork();
-     FlowNetwork(Graph g, int maxflow = 0, int currflow = 0);
-     FlowNetwork(FlowNetwork& other);
+     FlowNetwork(Graph i_graph, int i_maxflow = 0, int i_currentflow = 0);
+     FlowNetwork(FlowNetwork& i_otherFlowNetwork);
      ~FlowNetwork();
      List BFS();
 };

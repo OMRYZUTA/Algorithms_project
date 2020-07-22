@@ -7,15 +7,15 @@
 class Cut
 {
 private:
-     int* S;
-     int* T;  //two groups of vertexes
-     int sizeOfS;
-     int sizeOfT; 
+     int* m_sGroupOfVertexes;
+     int* m_tGroupOfVertexes;  //two groups of vertexes
+     int m_sizeOfS;
+     int m_sizeOfT; 
 public:
-     Cut();//deafult c'tor
-     Cut(int* S, int* T);// c'tor
-     Cut(Cut& other);//copy c'tor
-     Cut(Cut&& other);//move c'tor
+     Cut();//default c'tor
+     Cut(int* i_SgroupOfVertexes, int* i_TgroupOfVertexes);// c'tor
+     Cut(Cut& i_otherCut);//copy c'tor
+     Cut(Cut&& i_otherCut);//move c'tor
      ~Cut();
 };
 

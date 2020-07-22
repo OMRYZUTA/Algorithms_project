@@ -3,45 +3,56 @@
 
 Node::Node()
 {
-	this->next = nullptr;
+	m_data = 0;
+	m_next = nullptr;
 }
 
-Node::Node(int d, Node* nextNode)
+Node::Node(int i_data, Node* i_nextNode)
 {
-	this->data = d;	
-	this->next = nextNode;
+	m_data = i_data;	
+	m_next = i_nextNode;
 }
 
-Node::Node(Node* other)
+Node::Node(Node* i_otherNode)
 {
-	this->data = other->data;
-	this->next = other->next;
+	this->m_data = i_otherNode->getData();
+	this->m_next = i_otherNode->getNext();
 }
 
 Node::~Node()
 {
 }
 
-void Node::insertAfter(Node* newNode)
+void Node::insertAfter(Node* i_newNode)
 {
-	newNode->next = next;
-	next = newNode;
+	i_newNode->m_next = m_next;
+	m_next = i_newNode;
 }
 
-Node* Node::deleteAfter(Node* newNode)
+Node* Node::deleteAfter(Node* i_newNode)
 {
-	Node* temp = next;
-	if (next == nullptr) // If the current Node is the last Node
+	Node* temp = m_next;
+	if (m_next == nullptr) // If the current Node is the last Node
 		return nullptr;
 
-	next = temp->next;   // If the current Node is NOT the last Node
+	m_next = temp->getNext();   // If the current Node is NOT the last Node
 	return temp;
 }
 Node* Node::getNext()
 {
-	return next;
+	return m_next;
 }
 int Node::getData()
 {
-	return data;
+	return m_data;
+}
+
+void Node::setData(int i_data)
+{
+	m_data = i_data;
+}
+
+void Node::setNextNode(Node* i_NextNode)
+{
+	m_next = i_NextNode;
 }

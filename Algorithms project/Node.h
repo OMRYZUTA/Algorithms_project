@@ -8,19 +8,20 @@ using namespace std;
 class Node
 {
 private:
-	int data;                                 
-	Node* next;                                   //next Node in the list
+	int m_data;                                 
+	Node* m_next;                                   //next Node in the list
 
 public:
 	Node();                                       // Default c'tor
-	Node(int d, Node* nextNode);                  // c'tor
-	Node(Node* other);                            // copy c'tor
+	Node(int i_data, Node* i_nextNode);                  // c'tor
+	Node(Node* i_OtherNode);                            // copy c'tor
 	~Node();                                      // d'tor
-	void insertAfter(Node* newNode);              // Insert Node after current Node
-	Node* deleteAfter(Node* newNode);             // Delete Node after current Node
+	void insertAfter(Node* i_newNodeToAdd);              // Insert Node after current Node
+	Node* deleteAfter(Node* i_deleteAfterThisNode);             // Delete Node after current Node
+
 	Node* getNext();
 	int getData();
-	friend class List;
-	friend class Queue;
+	void setData(int i_data);
+	void setNextNode(Node* i_NextNode);
 };
 #endif // __NODE_H

@@ -2,21 +2,21 @@
 #include "Queue.h"
 #pragma warning(disable : 4996)
 
-FlowNetwork::FlowNetwork():g(),mincut()
+FlowNetwork::FlowNetwork():m_graph(),m_minCut()
 {
-     maxFlow  = currFlow = 0;//
+     m_maxFlow  = m_currentFlow=0;
 }
 
-FlowNetwork::FlowNetwork(Graph g, int maxflow, int currflow):g(g),mincut()
+FlowNetwork::FlowNetwork(Graph i_graph, int i_maxflow, int i_currentflow):m_graph(i_graph),m_minCut()
 {
-     this->maxFlow = maxflow;
-     this->currFlow = currflow;
+     this->m_maxFlow = i_maxflow;
+     this->m_currentFlow = i_currentflow;
 }
 
-FlowNetwork::FlowNetwork(FlowNetwork& other):g(other.g),mincut(other.mincut)
+FlowNetwork::FlowNetwork(FlowNetwork& i_otherFlowNetwork):m_graph(i_otherFlowNetwork.m_graph),m_minCut(i_otherFlowNetwork.m_minCut)
 {
-     this->maxFlow = other.maxFlow;
-     this->currFlow =other.currFlow;
+     this->m_maxFlow = i_otherFlowNetwork.m_maxFlow;
+     this->m_currentFlow =i_otherFlowNetwork.m_currentFlow;
 }
 
 FlowNetwork::~FlowNetwork()
@@ -27,7 +27,7 @@ FlowNetwork::~FlowNetwork()
 List FlowNetwork::BFS()
 {
      Queue q;
-     int arrSize = g.getNumOfVertexes();
+     int arrSize = m_graph.getNumOfVertexes();
      int* dArr = new int[arrSize];
      int* pArr = new int[arrSize];
           for (int i = 0; i < arrSize; i++)
@@ -35,14 +35,14 @@ List FlowNetwork::BFS()
                dArr[i] = -1;  // init the arr. -1 = infinty
                pArr[i] = -1; // to indicate that there is no parent
           }
-          q.enqueue(g.getSvertex());
-          dArr[g.getSvertex()] = 0;
-          int u;// temp vertex, inpired by page 98 in the book
+          q.enqueue(m_graph.getSvertex());
+          dArr[m_graph.getSvertex()] = 0;
+          int u;// temp vertex, inspired by page 98 in the book
           int v;
           while (!q.isEmpty())
           {
                u = q.dequeue(); // handling this vertex now
-               List ls= g.getAdjList(u);// get adjacency list
+               List ls= m_graph.getAdjList(u);// get adjacency list
                Node* tempNode = ls.getHead(); //in order to go through the list
                while (tempNode)
                {
@@ -58,8 +58,8 @@ List FlowNetwork::BFS()
                }
           }
           List track; //building the track from parents array
-          track.addNodeToHead(g.getTvertex());// adding t to be eventually the tail
-          int tempParent = pArr[g.getTvertex()]; 
+          track.addNodeToHead(m_graph.getTvertex());// adding t to be eventually the tail
+          int tempParent = pArr[m_graph.getTvertex()]; 
           while (tempParent!=-1)
           {
                track.addNodeToHead(tempParent);

@@ -7,13 +7,14 @@
 class Edge
 {
 private:
-     int capacity;
-     int flow;
-     int cf;
+     int m_edgeCapacity;
+     int m_edgeFlow;
+     int m_edgeCf;
 public:
-     Edge();
-     Edge(int capacity, int flow, int cf);
-     Edge(Edge& other);
-     ~Edge();
+     Edge();   //default c'tor
+     Edge(int i_edgeCapacity, int i_edgeFlow, int i_edgeCf); //c'tor
+     Edge(Edge& i_otherEdge);// copy c'tor
+                             // we don't need any move c'tor cause there is no pointers delete later.
+     ~Edge();// d'tor
 };
 #endif

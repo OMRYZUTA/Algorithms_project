@@ -3,25 +3,27 @@
 
 Edge::Edge()
 {
-     capacity = 0;
-     flow = 0;
-     cf = 0;
+     m_edgeCapacity = 0;
+     m_edgeFlow = 0;
+     m_edgeCf = 0;
 }
 
-Edge::Edge(int capacity, int flow, int cf)
+Edge::Edge(int i_edgeCapacity, int i_edgeFlow, int i_edgeCf)
 {
-     this->capacity = capacity;
-     this->flow = flow;
-     this->cf = cf;
+     m_edgeCapacity = i_edgeCapacity;
+     m_edgeFlow = i_edgeFlow;
+     m_edgeCf = i_edgeCf;
 }
 
 Edge::Edge(Edge& other)
 {
-     capacity = other.capacity;
-     flow = other.flow;
-     cf = other.cf;
+     m_edgeCapacity = other.m_edgeCapacity;
+     m_edgeFlow = other.m_edgeFlow;
+     m_edgeCf = other.m_edgeCf;
 }
 
-Edge::~Edge()
+
+
+Edge::~Edge() // there is nothing to delete right now
 {
 }

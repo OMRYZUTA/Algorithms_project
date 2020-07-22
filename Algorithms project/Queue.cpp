@@ -3,60 +3,90 @@
 
 Queue::Queue()
 {
-	head = nullptr;
-	tail = nullptr;
+	m_head = nullptr;
+	m_tail = nullptr;
 }
 
-Queue::Queue(Node* h, Node* t)
+Queue::Queue(Node* i_head, Node* i_tail)// do we need this? delete later
 {
-	head = h;
-	tail = t;
+	m_head = i_head;
+	m_tail = i_tail;
 }
 
-Queue::Queue(Queue& other)
+Queue::Queue(Queue& i_otherQueue) // we need to fix this Queue
 {
-	this->head = other.head;
-	this->tail = other.tail;
+	if (i_otherQueue.isEmpty())
+	{
+		m_head = nullptr;
+		m_tail = nullptr;
+	}
+	else
+	{
+		Node* tempOldQueueNode = i_otherQueue.m_head;
+		Node* builderQueueNode = new Node;
+		// initializing head
+		builderQueueNode->setData(tempOldQueueNode->getData());
+		m_head = builderQueueNode;
+		tempOldQueueNode = tempOldQueueNode->getNext();
+		while (tempOldQueueNode)
+		{
+			builderQueueNode->setNextNode(new Node);
+			builderQueueNode = builderQueueNode->getNext();
+			builderQueueNode->setData(tempOldQueueNode->getData());
+			tempOldQueueNode = tempOldQueueNode->getNext();
+		}
+		m_tail = builderQueueNode;
+	}
 }
 
 Queue::~Queue()
 {
+	Node* tempQueueNode = m_head;
+	Node* nextQueueNode = m_head->getNext();
+	while (nextQueueNode) // run through all the list
+	{
+		delete tempQueueNode;
+		tempQueueNode = nextQueueNode;
+		nextQueueNode = tempQueueNode->getNext();
+	}
+	m_head = nullptr; // to avoid double deletes bugs
+	m_tail = nullptr;
 }
 
-void Queue::makeEmpty() //לא חושב שיש הבדל מקונסטרקטור
+void Queue::makeEmpty() 
 {
-	head = nullptr;
-	tail = nullptr;
+	m_head = nullptr;
+	m_tail = nullptr;
 }
 
 bool Queue::isEmpty()
 {
-	return head == nullptr;
+	return m_head == nullptr;
 }
 
-void Queue::enqueue(int n)
+void Queue::enqueue(int i_data)
 {
-	Node* tmp = new Node;
-	tmp->data = n;
-	tmp->next = nullptr;
+	Node* tempNode = new Node;
+	tempNode->setData(i_data);
+	tempNode->setNextNode(nullptr);
 
-	if (head == nullptr)
+	if (m_head == nullptr)
 	{
-		head = tmp;
-		tail = tmp;
+		m_head = tempNode;
+		m_tail = tempNode;
 	}
 	else
 	{
-		tail->next = tmp;
-		tail = tail->next;
+		m_tail->setNextNode( tempNode);
+		m_tail = m_tail->getNext();
 	}
 }
 
 int Queue::dequeue()
 {
-	int data = head->data;
-	Node* tmp = head;
-	head = head->next;
+	int data = m_head->getData();
+	Node* tmp = m_head;
+	m_head = m_head->getNext();
 	delete tmp;
 	return data;
 }
