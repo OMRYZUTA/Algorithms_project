@@ -22,6 +22,37 @@ Edge::Edge(Edge& other)
      m_edgeCf = other.m_edgeCf;
 }
 
+void Edge::setEdgeCapacity(int i_edgeCapacity)
+{
+     m_edgeCapacity =  i_edgeCapacity;
+}
+
+void Edge::setEdgeFlow(int i_edgeFlow)
+{
+     if (i_edgeFlow > m_edgeCapacity)
+     {
+          cout << "Error! impossible to set this Flow ";
+          exit(1);
+     }
+     m_edgeFlow = i_edgeFlow;
+     m_edgeCf = m_edgeCapacity - m_edgeFlow;
+}
+
+int Edge::getEdgeCapacity()
+{
+     return m_edgeCapacity;
+}
+
+int Edge::getEdgeFlow()
+{
+     return m_edgeFlow;
+}
+
+int Edge::getEdgeCf()
+{
+     return m_edgeCf;
+}
+
 
 
 Edge::~Edge() // there is nothing to delete right now

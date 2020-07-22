@@ -4,6 +4,7 @@
 #include "Cut.h"
 #include "Node.h"
 #include "List.h"
+#include "Edge.h"
 
 class Graph
 {
