@@ -14,7 +14,7 @@ private:
 
 public:
 	List();                                       // Default c'tor
-	List(Node* h, Node* m_tVertex);                       // c'tor
+	List(Node* h, Node* t);                       // c'tor
 	List(List& other);                            // copy c'tor
 	List(List&& other);                           // move c'tor
 	~List();                                      // d'tor

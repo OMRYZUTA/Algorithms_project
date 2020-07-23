@@ -44,24 +44,31 @@ using namespace std;//
 
 void main()
 {
+     
 
+     
 
-     int m_numOfVertexes, numOfAdjes, m_sVertex, m_tVertex;
+     int numOfVertex, numOfAdjes, s, t;
           ifstream inFile("input.txt"); // opening file called "input.txt"
-          inFile >> m_numOfVertexes >> numOfAdjes>> m_sVertex >> m_tVertex;  //initialize those variables
-          Graph g1(m_numOfVertexes, numOfAdjes, m_sVertex -1, m_tVertex -1); // minus 1 for 
-          int fileInputVertex, fileInputneighbor, fileInputEdgeCapacity;
+          inFile >> numOfVertex >> numOfAdjes>> s>> t;  //initialize those variables
+          Graph g1(numOfVertex, numOfAdjes, s-1, t-1); // minus 1 for 
+          int tempV, tempU, tempC;
           for (int i = 0; i < numOfAdjes; i++)
           {
-               inFile >> fileInputVertex >> fileInputneighbor >> fileInputEdgeCapacity;
+               inFile >> tempV >> tempU >> tempC;
                // in the input file the vertex starts from 1. therefor the minus 1
-               g1.addEdgeCapacity(fileInputVertex -1, fileInputneighbor -1, fileInputEdgeCapacity);
+               g1.addEdge(tempV-1,tempU-1, tempC);
           }
-          cout <<"number Of Vertexes is: " <<m_numOfVertexes <<
+          cout <<"number Of Vertexes is: " <<numOfVertex <<
                " number Of edges is: " 
-               << numOfAdjes << " s Vertex is: " << m_tVertex
-               << " t  Vertex is: " << m_tVertex <<endl;
+               << numOfAdjes << " s Vertex is: " <<s 
+               << " t  Vertex is: " <<t<<endl;
           g1.printGraph();
+          FlowNetwork flowi(g1);
+          List listi = flowi.BFS();
+          // checking list copy constructor:
+          List List2(listi);
+         List2.printList();
+          inFile.close();
 
-   
 }

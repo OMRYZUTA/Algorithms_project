@@ -9,21 +9,19 @@
 class Graph
 {
 private:
-	Edge** m_adjMatrix; 
-	int m_numOfVertexes, m_numOfEdges, m_sVertex, m_tVertex;
+	int** adjMatrix; 
+	int numOfVertex, e, s, t;  // n - numofvertex, e - numofedges             
 
 public:
 	Graph();             // deafult c'tor
-	Graph(int i_numOfVertexes, int i_numOfEdges ,int i_sVertex, int i_tVertex);         // c'tor with arguments
+	Graph(int n, int e ,int s, int t);         // c'tor with arguments
 	Graph(Graph& other);        // copy c'tor
 	~Graph();      // d'tor 
-	void makeEmptyGraph(int i_numOfVertexes);
-	bool isAdjacent(int i_uVertex, int i_vVertex);
-	List getAdjListByCapacity(int i_uVertex);
-	void addEdgeCapacity(int i_uVertexRow, int i_vVertexColumn, int i_edgeCapacity);
-	
-	
-	void removeEdge(int i_uVertex, int i_vVertex);
+	void makeEmptyGraph(int n);
+	bool isAdjacent(int u, int v);
+	List getAdjList(int u);
+	void addEdge(int u, int v, int c);
+	void removeEdge(int u, int v);
 	void printGraph();
 	int getNumOfVertexes();
 	int getSvertex();
