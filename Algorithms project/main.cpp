@@ -44,7 +44,7 @@ using namespace std;
 
 void main()
 {
-
+    
 
      int m_numOfVertexes, numOfAdjes, m_sVertex, m_tVertex;
           ifstream inFile("input.txt"); // opening file called "input.txt"
