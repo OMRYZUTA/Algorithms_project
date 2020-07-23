@@ -9,14 +9,14 @@ FlowNetwork::FlowNetwork():m_graph(),m_minCut()
 
 FlowNetwork::FlowNetwork(Graph i_graph, int i_maxflow, int i_currentflow):m_graph(i_graph),m_minCut()
 {
-     this->m_maxFlow = i_maxflow;
-     this->m_currentFlow = i_currentflow;
+     m_maxFlow = i_maxflow;
+     m_currentFlow = i_currentflow;
 }
 
 FlowNetwork::FlowNetwork(FlowNetwork& i_otherFlowNetwork):m_graph(i_otherFlowNetwork.m_graph),m_minCut(i_otherFlowNetwork.m_minCut)
 {
-     this->m_maxFlow = i_otherFlowNetwork.m_maxFlow;
-     this->m_currentFlow =i_otherFlowNetwork.m_currentFlow;
+    m_maxFlow = i_otherFlowNetwork.m_maxFlow;
+    m_currentFlow =i_otherFlowNetwork.m_currentFlow;
 }
 
 FlowNetwork::~FlowNetwork()
@@ -24,7 +24,7 @@ FlowNetwork::~FlowNetwork()
 	
 }
 
-void FlowNetwork::BFS()
+int* FlowNetwork::BFS()
 {
      Queue q;
      int arrSize = m_graph.getNumOfVertexes();
@@ -32,8 +32,8 @@ void FlowNetwork::BFS()
      int* pArr = new int[arrSize];
           for (int i = 0; i < arrSize; i++)
           {
-               dArr[i] = -1;  // init the arr. -1 = infinty
-               pArr[i] = -1; // to indicate that there is no parent
+               dArr[i] = INFINITY_val;  // init the arr. -1 = infinty
+               pArr[i] = NO_parent; // to indicate that there is no parent
           }
           q.enqueue(m_graph.getSvertex());
           dArr[m_graph.getSvertex()] = 0;
@@ -47,7 +47,7 @@ void FlowNetwork::BFS()
                while (tempNode)
                {
                     v = tempNode->getData();
-                    if (dArr[v] == -1) // -1= infinity
+                    if (dArr[v] == INFINITY_val) // -1= infinity
                     {
                          dArr[v] = dArr[u] + 1;// d[v]=d[u]+1
                          pArr[v] = u;
@@ -57,14 +57,32 @@ void FlowNetwork::BFS()
                     tempNode = tempNode->getNext();
                }
           }
-          List track; //building the track from parents array
-          track.addNodeToHead(m_graph.getTvertex());// adding t to be eventually the tail
-          int tempParent = pArr[m_graph.getTvertex()]; 
-          while (tempParent!=-1)
-          {
-               track.addNodeToHead(tempParent);
-               tempParent = pArr[tempParent];
-          }
-         // return path from s 
-        //  return track;
+          delete[]dArr;
+          return pArr;
+}
+
+List FlowNetwork::findRouteFromStoT(int* i_pArr)
+{
+     if (i_pArr == nullptr)
+     {
+          cout << "Error pArr is nullptr";
+          exit(1);
+     }
+
+   
+     List routeFromStoT; //building the track from parents array
+     routeFromStoT.addNodeToHead(m_graph.getTvertex());// adding t to be eventually the tail
+     int tempParent = i_pArr[m_graph.getTvertex()];
+     while (tempParent != NO_parent)
+     {
+          routeFromStoT.addNodeToHead(tempParent);
+          tempParent = i_pArr[tempParent];
+     }
+     // return List that represent path of vertexes from s to t 
+     if (routeFromStoT.getHead()->getData() != m_graph.getSvertex())
+     {
+          routeFromStoT.makeEmpty();
+     }
+     delete[] i_pArr;
+     return routeFromStoT;
 }

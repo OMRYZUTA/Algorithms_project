@@ -17,12 +17,14 @@ public:
 	List(Node* h, Node* m_tVertex);                       // c'tor
 	List(List& other);                            // copy c'tor
 	List(List&& other);                           // move c'tor
-	~List();                                      // d'tor
+	~List();             // d'tor
+
 	void addNodeToTail(int n);
 	void addNodeToHead(int n);
 	Node* getHead();
 
 	bool isEmpty();
+	void makeEmpty();
 	void printList();              	
 };
 #endif // __LIST_H

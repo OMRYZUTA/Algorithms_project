@@ -87,6 +87,10 @@ bool List::isEmpty()
 	return (m_head ==nullptr);
 }
 
+void List::makeEmpty()
+{
+}
+
 void List::printList()
 {
 	Node* currentListNode = m_head;

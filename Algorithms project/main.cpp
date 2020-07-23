@@ -62,6 +62,8 @@ void main()
                << numOfAdjes << " s Vertex is: " << m_tVertex
                << " t  Vertex is: " << m_tVertex <<endl;
           g1.printGraph();
-
-   
+          FlowNetwork flow1(g1);
+          List l1 =flow1.findRouteFromStoT(flow1.BFS());
+          l1.printList();
+          
 }
