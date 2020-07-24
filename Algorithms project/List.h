@@ -23,6 +23,7 @@ public:
 	Node* getHead();
 
 	bool isEmpty();
+	void makeEmpty();
 	void printList();              	
 };
 #endif // __LIST_H
