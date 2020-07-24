@@ -53,6 +53,13 @@ int Edge::getEdgeCapacity()
      return m_edgeCapacity;
 }
 
+void Edge::resetEdge()
+{
+     m_edgeCapacity = 0;
+     m_edgeCf = 0;
+     m_edgeFlow = 0;
+}
+
 
 
 Edge::~Edge() // there is nothing to delete right now
