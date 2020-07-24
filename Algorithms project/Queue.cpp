@@ -42,21 +42,33 @@ Queue::Queue(Queue& i_otherQueue) // we need to fix this Queue
 Queue::~Queue()
 {
 	Node* tempQueueNode = m_head;
-	Node* nextQueueNode = m_head->getNext();
-	while (nextQueueNode) // run through all the list
-	{
-		delete tempQueueNode;
-		tempQueueNode = nextQueueNode;
-		nextQueueNode = tempQueueNode->getNext();
+	if (tempQueueNode) {
+		Node* nextQueueNode = m_head->getNext();
+		while (nextQueueNode) // run through all the list
+		{
+			delete tempQueueNode;
+			tempQueueNode = nextQueueNode;
+			nextQueueNode = tempQueueNode->getNext();
+		}
+		m_head = nullptr; // to avoid double deletes bugs
+		m_tail = nullptr;
 	}
-	m_head = nullptr; // to avoid double deletes bugs
-	m_tail = nullptr;
 }
 
 void Queue::makeEmpty() 
 {
-	m_head = nullptr;
-	m_tail = nullptr;
+	Node* tempQueueNode = m_head;
+	if (tempQueueNode) {
+		Node* nextQueueNode = m_head->getNext();
+		while (nextQueueNode) // run through all the list
+		{
+			delete tempQueueNode;
+			tempQueueNode = nextQueueNode;
+			nextQueueNode = tempQueueNode->getNext();
+		}
+		m_head = nullptr; // to avoid double deletes bugs
+		m_tail = nullptr;
+	}
 }
 
 bool Queue::isEmpty()

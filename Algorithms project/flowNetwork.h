@@ -26,8 +26,7 @@ public:
      ~FlowNetwork();
      int* BFS();
      List findRouteFromStoT(int* i_pArr);
-     int findMinCfInRoute(List i_route);
-     void increaseFlow(List i_trackFromStoT, int i_addToFlow);
+     void increaseFlow(List i_trackFromStoT);
      int fordFulkersonMethod();
 };
 

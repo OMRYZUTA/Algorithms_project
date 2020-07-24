@@ -17,7 +17,8 @@ public:
 	List(Node* h, Node* t);                       // c'tor
 	List(List& other);                            // copy c'tor
 	List(List&& other);                           // move c'tor
-	~List();                                      // d'tor
+	~List();             // d'tor
+
 	void addNodeToTail(int n);
 	void addNodeToHead(int n);
 	Node* getHead();

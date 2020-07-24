@@ -89,18 +89,6 @@ bool List::isEmpty()
 
 void List::makeEmpty()
 {
-	Node* tempListNode = m_head;
-	if (tempListNode) {
-		Node* nextListNode = m_head->getNext();
-		while (nextListNode) // run through all the list
-		{
-			delete tempListNode;
-			tempListNode = nextListNode;
-			nextListNode = tempListNode->getNext();
-		}
-		m_head = nullptr; // to avoid double deletes bugs
-		m_tail = nullptr;
-	}
 }
 
 void List::printList()
