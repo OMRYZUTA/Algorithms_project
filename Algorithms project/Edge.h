@@ -20,7 +20,7 @@ public:
 //setters:
      void setEdgeCapacity(int i_edgeCapacity);
      void setEdgeFlow(int i_edgeFlow);// also updates cf
-
+ 
      int getEdgeCf();
      int getEdgeFlow();      // getters
      int getEdgeCapacity();

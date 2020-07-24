@@ -59,7 +59,7 @@ void main()
           }
           cout <<"number Of Vertexes is: " <<m_numOfVertexes <<
                " number Of edges is: " 
-               << numOfAdjes << " s Vertex is: " << m_tVertex
+               << numOfAdjes << " s Vertex is: " << m_sVertex
                << " t  Vertex is: " << m_tVertex <<endl;
           g1.printGraph();
           FlowNetwork flow1(g1);

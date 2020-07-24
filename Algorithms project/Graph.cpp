@@ -79,9 +79,11 @@ List Graph::getAdjListByCapacity(int i_uVertexRow)
 	return lst;
 }
 
+// also updates the flow and cf
 void Graph::addEdgeCapacity(int i_uVertexRow, int i_vVertexColumn, int i_edgeCapacity)
 {
 	m_adjMatrix[i_uVertexRow][i_vVertexColumn].setEdgeCapacity(i_edgeCapacity);
+	m_adjMatrix[i_uVertexRow][i_vVertexColumn].setEdgeFlow(0);
 }
 
 void Graph::removeEdge(int i_uVertexRow, int i_vVertexColumn)

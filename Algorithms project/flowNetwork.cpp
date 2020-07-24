@@ -61,6 +61,12 @@ int* FlowNetwork::BFS()
           return pArr;
 }
 
+int FlowNetwork::findMinCfInRoute(List i_trackFromStoT)
+{
+     int minCf
+     return 0;
+}
+
 List FlowNetwork::findRouteFromStoT(int* i_pArr)
 {
      if (i_pArr == nullptr)
