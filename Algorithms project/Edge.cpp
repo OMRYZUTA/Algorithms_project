@@ -38,9 +38,9 @@ void Edge::setEdgeFlow(int i_edgeFlow)
      m_edgeCf = m_edgeCapacity - m_edgeFlow;
 }
 
-int Edge::getEdgeCapacity()
+int Edge::getEdgeCf()
 {
-     return m_edgeCapacity;
+     return m_edgeCf;
 }
 
 int Edge::getEdgeFlow()
@@ -48,9 +48,9 @@ int Edge::getEdgeFlow()
      return m_edgeFlow;
 }
 
-int Edge::getEdgeCf()
+int Edge::getEdgeCapacity()
 {
-     return m_edgeCf;
+     return m_edgeCapacity;
 }
 
 

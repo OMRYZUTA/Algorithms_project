@@ -6,9 +6,11 @@
 
 #include "Graph.h"
 #include "List.h"
-
+#include "Queue.h"
 using namespace std;
 
+constexpr int INFINITY_val = -1;
+constexpr int NO_parent = -2;
 class FlowNetwork
 {
 private:
@@ -22,7 +24,11 @@ public:
      FlowNetwork(Graph i_graph, int i_maxflow = 0, int i_currentflow = 0);
      FlowNetwork(FlowNetwork& i_otherFlowNetwork);
      ~FlowNetwork();
-     List BFS();
+     int* BFS();
+     List findRouteFromStoT(int* i_pArr);
+     int findMinCfInRoute(List i_route);
+     void increaseFlow(List i_trackFromStoT, int i_addToFlow);
+     int fordFulkersonMethod();
 };
 
 

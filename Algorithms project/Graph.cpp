@@ -5,116 +5,117 @@
 
 Graph::Graph()
 {
-	adjMatrix = nullptr;
-	numOfVertex = e = s = t = 0;
+	m_adjMatrix = nullptr;
+	m_numOfVertexes = m_numOfEdges = m_sVertex = m_tVertex = 0;
 }
 
-Graph::Graph(int numOfVertex = 0, int e = 0, int s = 0, int t = 0)  
+Graph::Graph(int i_numOfVertexes = 0, int i_numOfEdges = 0, int i_sVertex = 0, int i_tVertex = 0)  
 {
-	this->numOfVertex = numOfVertex;
-	this->e = e;
-	this->s = s;
-	this->t = t;
-	adjMatrix = new int*[numOfVertex]; // making space for n rows
-	for (int row = 0; row < numOfVertex; row++)
+	m_numOfVertexes = i_numOfVertexes;
+	m_numOfEdges = i_numOfEdges;
+	m_sVertex = i_sVertex;
+	m_tVertex = i_tVertex;
+	m_adjMatrix = new Edge*[m_numOfVertexes]; // making space for n rows
+	for (int row = 0; row < m_numOfVertexes; row++)
 	{
-		adjMatrix[row] = new int[numOfVertex]; //making space for n ints/ edges delete later
-		for (int column = 0; column < numOfVertex; column++)
-		{
-			adjMatrix[row][column] = 0;// initing
-		}
+		m_adjMatrix[row] = new Edge[m_numOfVertexes]; //making space for n edges 
+		
 	}
+	// the matrix is initiated with Edge default c'tors
 }
 
 Graph::Graph(Graph& other)
 {
-	this->numOfVertex = other.numOfVertex;
-	this->e = other.e;
-	this->s = other.s;
-	this->t = other.t;
-	adjMatrix = new int* [this->numOfVertex]; // making space for n rows
-	for (int row = 0; row < numOfVertex; row++)
+	m_numOfVertexes = other.m_numOfVertexes;
+	m_numOfEdges = other.m_numOfEdges;
+	m_sVertex = other.m_sVertex;
+	m_tVertex = other.m_tVertex;
+	m_adjMatrix = new Edge* [m_numOfVertexes]; // making space for n rows
+	for (int row = 0; row < m_numOfVertexes; row++)
 	{
-		adjMatrix[row] = new int[numOfVertex]; //making space for n ints/ edges delete later
+		m_adjMatrix[row] = new Edge[m_numOfVertexes]; //making space for n ints/ edges delete later
 
 	}
-	for (int i = 0; i < numOfVertex; i++)
-		for (int k = 0; k < numOfVertex; k++)
-			adjMatrix[i][k] = other.adjMatrix[i][k];
+	for (int i = 0; i < m_numOfVertexes; i++)
+		for (int k = 0; k < m_numOfVertexes; k++)
+			m_adjMatrix[i][k] = other.m_adjMatrix[i][k]; // default opertor '=' will do the work for us
 }
 
 Graph::~Graph()
 {
-	for (int i = 0; i < numOfVertex; i++)
-		delete adjMatrix[i];
-	delete adjMatrix;
+	for (int i = 0; i < m_numOfVertexes; i++)
+		delete[] m_adjMatrix[i];
+	delete m_adjMatrix;
 }
 
-void Graph::makeEmptyGraph(int n)
+void Graph::makeEmptyGraph(int i_numberOfVertexes)
 {
-	this->numOfVertex = n;
-	adjMatrix = new int*[n];
-	for (int row = 0; row < n; row++)
+	m_numOfVertexes = i_numberOfVertexes;
+	m_adjMatrix = new Edge*[i_numberOfVertexes];
+	for (int row = 0; row < i_numberOfVertexes; row++)
 	{
-		adjMatrix[row] = new int[n];
-		for (int column = 0; column < n; column++)
-		{
-			adjMatrix[row][column] = 0;
-		}
+		m_adjMatrix[row] = new Edge[i_numberOfVertexes];
+		// the matrix is initiated with Edge default c'tors
 	}
 }
 
 
-bool Graph::isAdjacent(int u, int v)
+bool Graph::isAdjacent(int i_uVertexRow, int i_vVertexColumn)
 {
-	if (adjMatrix[u][v] > 0)
+	if (m_adjMatrix[i_uVertexRow][i_vVertexColumn].getEdgeCf() > 0)
 		return true;
 	else
 		return false;
 }
 
-List Graph::getAdjList(int u)
+List Graph::getAdjListByCapacity(int i_uVertexRow)
 {
 	List lst;
-	for (int i = 0; i < numOfVertex; i++)
+	for (int i = 0; i < m_numOfVertexes; i++)
 	{
-		if( adjMatrix[u][i]>0)
+		if( m_adjMatrix[i_uVertexRow][i].getEdgeCf()>0)
 		lst.addNodeToTail(i);// save in the list all the neighbors of u
 	}
 	return lst;
 }
 
-void Graph::addEdge(int u, int v, int c)
+void Graph::addEdgeCapacity(int i_uVertexRow, int i_vVertexColumn, int i_edgeCapacity)
 {
-	adjMatrix[u][v] = c;
+	m_adjMatrix[i_uVertexRow][i_vVertexColumn].setEdgeCapacity(i_edgeCapacity);
 }
 
-void Graph::removeEdge(int u, int v)
+void Graph::removeEdge(int i_uVertexRow, int i_vVertexColumn)
 {
-	adjMatrix[u][v] = 0;
+	m_adjMatrix[i_uVertexRow][i_vVertexColumn].resetEdge();
+}
+
+int Graph::getEdgeCf(int i_uVertex, int i_vVertex)
+{
+
+	return m_adjMatrix[i_uVertex][i_vVertex].getEdgeCf();
 }
 
 
 void Graph::printGraph()
 {
 	// adding +1 to each edge in order to match the instruction.
-	for (int i = 0; i < numOfVertex; i++)
-		for (int k = 0; k < numOfVertex; k++)
+	for (int i = 0; i < m_numOfVertexes; i++)
+		for (int k = 0; k < m_numOfVertexes; k++)
 		{
-			if(adjMatrix[i][k]!= 0)
+			if(m_adjMatrix[i][k].getEdgeCf()!= 0)
 			cout << "Edge (" << i + 1 << "," << k + 1 << ")" << " capacity: "
-				<< adjMatrix[i][k] << endl;
+				<< m_adjMatrix[i][k].getEdgeCf() << endl;
 		}
 }
 int Graph::getNumOfVertexes()
 {
-	return numOfVertex;
+	return m_numOfVertexes;
 }
 int Graph::getSvertex() {
-	return s;
+	return m_sVertex;
 }
 
 int Graph::getTvertex()
 {
-	return t;
+	return m_tVertex;
 }
