@@ -24,12 +24,14 @@ public:
      FlowNetwork(Graph i_graph, int i_maxflow = 0, int i_currentflow = 0);
      FlowNetwork(FlowNetwork& i_otherFlowNetwork);
      ~FlowNetwork();
-
+     
      int* BFS();
      int findMinCfInRoute(List i_trackFromStoT);
      List findRouteFromStoT(int* i_pArr);
-     void increaseFlow(List i_trackFromStoT);
+     void increaseFlow(List i_trackFromStoT, int i_flowToIncrease);
      int fordFulkersonMethod();
+
+     void printFlowNetwork();
 };
 
 

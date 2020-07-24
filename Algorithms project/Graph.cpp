@@ -86,6 +86,11 @@ void Graph::addEdgeCapacity(int i_uVertexRow, int i_vVertexColumn, int i_edgeCap
 	m_adjMatrix[i_uVertexRow][i_vVertexColumn].setEdgeFlow(0);
 }
 
+void Graph::increaseFlow(int i_uVertex, int i_vVertex, int i_flowToIncrease)
+{
+	m_adjMatrix[i_uVertex][i_vVertex].setEdgeFlow(m_adjMatrix[i_uVertex][i_vVertex].getEdgeFlow() + i_flowToIncrease);
+}
+
 void Graph::removeEdge(int i_uVertexRow, int i_vVertexColumn)
 {
 	m_adjMatrix[i_uVertexRow][i_vVertexColumn].resetEdge();
@@ -104,9 +109,14 @@ void Graph::printGraph()
 	for (int i = 0; i < m_numOfVertexes; i++)
 		for (int k = 0; k < m_numOfVertexes; k++)
 		{
-			if(m_adjMatrix[i][k].getEdgeCf()!= 0)
-			cout << "Edge (" << i + 1 << "," << k + 1 << ")" << " capacity: "
-				<< m_adjMatrix[i][k].getEdgeCf() << endl;
+			if (m_adjMatrix[i][k].getEdgeCf() != 0)
+			{
+				cout << "Edge (" << i + 1 << "," << k + 1 << ")" << " capacity: "
+					<< m_adjMatrix[i][k].getEdgeCapacity() << " flow: "
+					<< m_adjMatrix[i][k].getEdgeFlow()<<" cF: "
+					<< m_adjMatrix[i][k].getEdgeCf() << endl;
+
+			}
 		}
 }
 int Graph::getNumOfVertexes()

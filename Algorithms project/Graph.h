@@ -18,11 +18,13 @@ public:
 	Graph(Graph& other);        // copy c'tor
 	~Graph();      // d'tor 
 	void makeEmptyGraph(int i_numOfVertexes);
+
 	bool isAdjacent(int i_uVertex, int i_vVertex);
 	List getAdjListByCapacity(int i_uVertex);
+
 	void addEdgeCapacity(int i_uVertexRow, int i_vVertexColumn, int i_edgeCapacity);
 	
-	
+	void increaseFlow(int i_uVertex, int i_vVertex, int i_flowToIncrease);
 	void removeEdge(int i_uVertex, int i_vVertex);
 	int getEdgeCf(int i_uVertex, int i_vVertex);
 	void printGraph();

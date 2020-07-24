@@ -127,3 +127,44 @@ List FlowNetwork::findRouteFromStoT(int* i_pArr)
      delete[] i_pArr;
      return routeFromStoT;
 }
+
+void FlowNetwork::increaseFlow(List i_trackFromStoT, int i_flowToIncrease)
+{
+     int minCf;
+     Node* tempVertexU, * tempVertexV;
+
+     tempVertexU = i_trackFromStoT.getHead();
+     if (tempVertexU)
+     {
+          tempVertexV = tempVertexU->getNext(); // need to change this delete later. make it readable
+          if (tempVertexV)
+          {
+          }
+          else
+          {
+               cout << "Error! there is no Edge in route";
+               exit(1);
+          }
+     }
+     else
+     {
+          cout << "Error! there is no Edge in route";
+          exit(1);
+     }
+     while (tempVertexV)
+     {
+          // increase flow by i_flowToIncrease
+          
+          m_graph.increaseFlow(tempVertexU->getData(), tempVertexV->getData(), i_flowToIncrease);
+          //decrease flow by i_flowToIncrease in the opposite edge
+          m_graph.increaseFlow(tempVertexV->getData(), tempVertexU->getData(), -i_flowToIncrease);
+          
+          tempVertexU = tempVertexV;
+          tempVertexV = tempVertexV->getNext();
+     }
+}
+
+void FlowNetwork::printFlowNetwork()
+{
+     m_graph.printGraph();
+}
