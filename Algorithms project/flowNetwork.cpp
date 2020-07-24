@@ -63,8 +63,43 @@ int* FlowNetwork::BFS()
 
 int FlowNetwork::findMinCfInRoute(List i_trackFromStoT)
 {
-     int minCf
-     return 0;
+     int minCf;
+     Node* tempVertexU, * tempVertexV;
+     
+     tempVertexU = i_trackFromStoT.getHead();
+     if (tempVertexU)
+     {
+          tempVertexV = tempVertexU->getNext();
+          if (tempVertexV)
+          {
+               minCf = m_graph.getEdgeCf(tempVertexU->getData(), tempVertexV->getData());
+          }
+          else
+          {
+               cout << "Error! there is no Edge in route";
+               exit(1);
+          }
+     }
+     else
+     {
+          cout << "Error! there is no Edge in route";
+          exit(1);
+     }
+     while (tempVertexV)
+     {
+         
+          if (tempVertexV)
+          {
+               if(minCf > m_graph.getEdgeCf(tempVertexU->getData(), tempVertexV->getData()))
+               {
+                    minCf = m_graph.getEdgeCf(tempVertexU->getData(), tempVertexV->getData());
+               }
+          }
+          tempVertexU = tempVertexV;
+          tempVertexV = tempVertexV->getNext();
+     }
+     return minCf;
+
 }
 
 List FlowNetwork::findRouteFromStoT(int* i_pArr)

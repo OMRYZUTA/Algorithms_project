@@ -64,6 +64,7 @@ void main()
           g1.printGraph();
           FlowNetwork flow1(g1);
           List l1 =flow1.findRouteFromStoT(flow1.BFS());
+          cout<<flow1.findMinCfInRoute(l1);
           l1.printList();
           
 }
