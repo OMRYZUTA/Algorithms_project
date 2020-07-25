@@ -64,6 +64,19 @@ List::~List()
 	}
 }
 
+const List& List::operator=(List&& i_otherList)
+{
+	if (this != &i_otherList)
+	{
+		m_head = i_otherList.getHead();
+		m_tail = i_otherList.m_tail;
+		i_otherList.m_head = nullptr;
+		i_otherList.m_tail = nullptr;
+	}
+	return *this;
+	
+}
+
 void List::addNodeToTail(int i_data)
 {
 	Node* tmp = new Node;

@@ -14,13 +14,15 @@ private:
 
 public:
 	List();                                       // Default c'tor
-	List(Node* h, Node* t);                       // c'tor
-	List(List& other);                            // copy c'tor
-	List(List&& other);                           // move c'tor
+	List(Node* i_head, Node* i_tail);                       // c'tor
+	List(List& i_otherList);                            // copy c'tor
+	List(List&& i_otherList);                           // move c'tor
 	~List();             // d'tor
 
-	void addNodeToTail(int n);
-	void addNodeToHead(int n);
+	const List& operator=(List&& i_otherList);
+
+	void addNodeToTail(int i_data);
+	void addNodeToHead(int i_data);
 	Node* getHead();
 
 	bool isEmpty();

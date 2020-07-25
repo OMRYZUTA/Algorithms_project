@@ -27,6 +27,7 @@ public:
 	void increaseFlow(int i_uVertex, int i_vVertex, int i_flowToIncrease);
 	void removeEdge(int i_uVertex, int i_vVertex);
 	int getEdgeCf(int i_uVertex, int i_vVertex);
+	int getEdgeFlow(int i_uVertex, int i_vVertex);
 	void printGraph();
 
 	int getNumOfVertexes();

@@ -24,19 +24,19 @@ FlowNetwork::~FlowNetwork()
 	
 }
 
-int* FlowNetwork::BFS()
+int* FlowNetwork::BFS(int *i_dArr)
 {
      Queue q;
      int arrSize = m_graph.getNumOfVertexes();
-     int* dArr = new int[arrSize];
+    
      int* pArr = new int[arrSize];
           for (int i = 0; i < arrSize; i++)
           {
-               dArr[i] = INFINITY_val;  // init the arr. -1 = infinty
+               i_dArr[i] = INFINITY_val;  // init the arr. -1 = infinty
                pArr[i] = NO_parent; // to indicate that there is no parent
           }
           q.enqueue(m_graph.getSvertex());
-          dArr[m_graph.getSvertex()] = 0;
+          i_dArr[m_graph.getSvertex()] = 0;
           int u;// temp vertex, inspired by page 98 in the book
           int v;
           while (!q.isEmpty())
@@ -47,9 +47,9 @@ int* FlowNetwork::BFS()
                while (tempNode)
                {
                     v = tempNode->getData();
-                    if (dArr[v] == INFINITY_val) // -1= infinity
+                    if (i_dArr[v] == INFINITY_val) // -1= infinity
                     {
-                         dArr[v] = dArr[u] + 1;// d[v]=d[u]+1
+                         i_dArr[v] = i_dArr[u] + 1;// d[v]=d[u]+1
                          pArr[v] = u;
                          q.enqueue(v);//q.Enqueue(v)
                          
@@ -57,7 +57,7 @@ int* FlowNetwork::BFS()
                     tempNode = tempNode->getNext();
                }
           }
-          delete[]dArr;
+        
           return pArr;
 }
 
@@ -161,6 +161,54 @@ void FlowNetwork::increaseFlow(List i_trackFromStoT, int i_flowToIncrease)
           
           tempVertexU = tempVertexV;
           tempVertexV = tempVertexV->getNext();
+     }
+}
+
+int FlowNetwork::fordFulkersonMethodWithBFS()
+{
+     int arrSize = m_graph.getNumOfVertexes();
+     int* dArr = new int[arrSize];
+     int* tempParentsArray = nullptr;
+     tempParentsArray = BFS(dArr);
+     List tempRouteFromStoT = findRouteFromStoT(tempParentsArray);
+     int tempMinCf = 0;
+     while (!tempRouteFromStoT.isEmpty())
+     {
+          tempMinCf = findMinCfInRoute(tempRouteFromStoT);
+          increaseFlow(tempRouteFromStoT, tempMinCf);
+          tempParentsArray = BFS(dArr);
+          tempRouteFromStoT = findRouteFromStoT(tempParentsArray); //move operator =
+     }
+     m_maxFlow = getCurrentFlow(); //because after the last iteration, the flow is maximal
+     setCut(dArr);// now it is possible to set the minCut.
+     delete[]dArr;
+     return m_maxFlow;
+}
+
+int FlowNetwork::getCurrentFlow()
+{
+     m_currentFlow = 0;
+     int sVertex = m_graph.getSvertex();
+     for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
+     {
+          m_currentFlow += m_graph.getEdgeFlow(sVertex, i);
+     }
+     return m_currentFlow;
+}
+
+void FlowNetwork::setCut(int* i_dArray)
+{
+     int numOfVertexes = m_graph.getNumOfVertexes();
+     for (int i = 0; i < numOfVertexes; i++)
+     {
+          if (i_dArray[i] == INFINITY_val)
+          {
+               m_minCut.addVertexToT(i);
+          }
+          else 
+          {
+               m_minCut.addVertexToS(i);
+          }
      }
 }
 

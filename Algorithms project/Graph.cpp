@@ -102,6 +102,11 @@ int Graph::getEdgeCf(int i_uVertex, int i_vVertex)
 	return m_adjMatrix[i_uVertex][i_vVertex].getEdgeCf();
 }
 
+int Graph::getEdgeFlow(int i_uVertex, int i_vVertex)
+{
+	return m_adjMatrix[i_uVertex][i_vVertex].getEdgeFlow();
+}
+
 
 void Graph::printGraph()
 {
