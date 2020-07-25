@@ -44,8 +44,6 @@ using namespace std;
 
 void main()
 {
-    
-
      int m_numOfVertexes, numOfAdjes, m_sVertex, m_tVertex;
           ifstream inFile("input.txt"); // opening file called "input.txt"
           inFile >> m_numOfVertexes >> numOfAdjes>> m_sVertex >> m_tVertex;  //initialize those variables
@@ -57,12 +55,13 @@ void main()
                // in the input file the vertex starts from 1. therefor the minus 1
                g1.addEdgeCapacity(fileInputVertex -1, fileInputneighbor -1, fileInputEdgeCapacity);
           }
-          cout <<"number Of Vertexes is: " <<m_numOfVertexes <<
+  /*        cout <<"number Of Vertexes is: " <<m_numOfVertexes <<
                " number Of edges is: " 
                << numOfAdjes << " s Vertex is: " << m_sVertex
                << " t  Vertex is: " << m_tVertex <<endl;
-          g1.printGraph();
+          g1.printGraph();*/
+          cout << "BFS Method:\n";
           FlowNetwork flow1(g1);
-          cout << "the Max flow is: " << flow1.fordFulkersonMethodWithBFS();
+          flow1.fordFulkersonMethodWithBFS();
           flow1.printFlowNetwork();
 }

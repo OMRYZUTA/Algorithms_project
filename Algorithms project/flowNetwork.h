@@ -18,6 +18,7 @@ private:
      int m_maxFlow;
      int m_currentFlow;
      Cut m_minCut;
+     int m_numOfiterations;
      
 public:
      FlowNetwork();

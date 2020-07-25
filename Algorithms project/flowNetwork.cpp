@@ -166,6 +166,7 @@ void FlowNetwork::increaseFlow(List i_trackFromStoT, int i_flowToIncrease)
 
 int FlowNetwork::fordFulkersonMethodWithBFS()
 {
+     m_numOfiterations = 0;
      int arrSize = m_graph.getNumOfVertexes();
      int* dArr = new int[arrSize];
      int* tempParentsArray = nullptr;
@@ -178,7 +179,7 @@ int FlowNetwork::fordFulkersonMethodWithBFS()
           increaseFlow(tempRouteFromStoT, tempMinCf);
           tempParentsArray = BFS(dArr);
           tempRouteFromStoT = findRouteFromStoT(tempParentsArray); //move operator =
-          cout << "currentFlow now is: " << getCurrentFlow() << endl;
+          ++m_numOfiterations;
      }
      m_maxFlow = getCurrentFlow(); //because after the last iteration, the flow is maximal
      setCut(dArr);// now it is possible to set the minCut.
@@ -215,8 +216,9 @@ void FlowNetwork::setCut(int* i_dArray)
 
 void FlowNetwork::printFlowNetwork()
 {
-     m_graph.printGraph();
+     cout << "Max flow = " << m_maxFlow << endl;
      m_minCut.showCut();
+     cout << "Number of iterations = " << m_numOfiterations << endl;
 
-     cout << endl << "current flow is: " << m_currentFlow << endl;
+     
 }

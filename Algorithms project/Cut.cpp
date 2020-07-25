@@ -39,7 +39,7 @@ void Cut::showCut()
 		exit(1);
 	}
 	while(printerNode){
-		cout << printerNode->getData();
+		cout << printerNode->getData()+1;
 		if (printerNode->getNext())
 		{
 			cout <<", " ;
@@ -59,7 +59,7 @@ void Cut::showCut()
 	cout << "  T = ";
 	while(printerNode)
 	{
-		cout << printerNode->getData();
+		cout << printerNode->getData()+1;
 		if (printerNode->getNext())
 		{
 			cout << ", ";
