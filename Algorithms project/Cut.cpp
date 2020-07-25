@@ -54,7 +54,7 @@ void Cut::showCut()
 	if (!(printerNode))
 	{
 		cout << " Error! T group  is empty";
-		exit(1);
+	//	exit(1); just for debugging!
 	}
 	cout << "  T = ";
 	while(printerNode)

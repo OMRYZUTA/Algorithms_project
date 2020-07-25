@@ -130,27 +130,27 @@ List FlowNetwork::findRouteFromStoT(int* i_pArr)
 
 void FlowNetwork::increaseFlow(List i_trackFromStoT, int i_flowToIncrease)
 {
-     int minCf;
+   
      Node* tempVertexU, * tempVertexV;
 
      tempVertexU = i_trackFromStoT.getHead();
      if (tempVertexU)
      {
           tempVertexV = tempVertexU->getNext(); // need to change this delete later. make it readable
-          if (tempVertexV)
-          {
-          }
-          else
+          if (!tempVertexV)
           {
                cout << "Error! there is no Edge in route";
                exit(1);
           }
+       
      }
      else
      {
           cout << "Error! there is no Edge in route";
           exit(1);
      }
+     m_currentFlow += i_flowToIncrease;// updating currentFlow
+
      while (tempVertexV)
      {
           // increase flow by i_flowToIncrease
@@ -178,6 +178,7 @@ int FlowNetwork::fordFulkersonMethodWithBFS()
           increaseFlow(tempRouteFromStoT, tempMinCf);
           tempParentsArray = BFS(dArr);
           tempRouteFromStoT = findRouteFromStoT(tempParentsArray); //move operator =
+          cout << "currentFlow now is: " << getCurrentFlow() << endl;
      }
      m_maxFlow = getCurrentFlow(); //because after the last iteration, the flow is maximal
      setCut(dArr);// now it is possible to set the minCut.
@@ -215,4 +216,7 @@ void FlowNetwork::setCut(int* i_dArray)
 void FlowNetwork::printFlowNetwork()
 {
      m_graph.printGraph();
+     m_minCut.showCut();
+
+     cout << endl << "current flow is: " << m_currentFlow << endl;
 }
