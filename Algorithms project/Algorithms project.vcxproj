@@ -144,8 +144,10 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="flowNetwork.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="HeapElement.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MaxHeap.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Queue.cpp" />
   </ItemGroup>
@@ -154,7 +156,9 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="flowNetwork.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="HeapElement.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="MaxHeap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Queue.h" />
   </ItemGroup>
