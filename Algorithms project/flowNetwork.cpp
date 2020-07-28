@@ -198,6 +198,12 @@ int FlowNetwork::getCurrentFlow()
      return m_currentFlow;
 }
 
+int FlowNetwork::dijskstraVarationMethod()
+{
+
+    return 0; // need to return m_maxFlow
+}
+
 void FlowNetwork::setCut(int* i_dArray)
 {
      int numOfVertexes = m_graph.getNumOfVertexes();
