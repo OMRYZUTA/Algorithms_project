@@ -7,6 +7,8 @@
 #include "Graph.h"
 #include "List.h"
 #include "Queue.h"
+#include "MaxHeap.h"
+
 using namespace std;
 
 constexpr int INFINITY_val = -1;
@@ -35,6 +37,8 @@ public:
      int fordFulkersonMethodWithBFS();
      int  getCurrentFlow();
      
+     int dijskstraVarationMethod();
+
      void setCut(int* i_dArray);
      void printFlowNetwork();
 };
