@@ -2,7 +2,7 @@
 #pragma warning(disable : 4996)
 
 
-MaxHeap::MaxHeap(int max)
+MaxHeap::MaxHeap(int max)//
 {
 	heapArr = new HeapElement[max];
 	vertexPlaceInHeap = new int[max];
