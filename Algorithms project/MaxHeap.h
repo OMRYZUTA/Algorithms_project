@@ -10,6 +10,7 @@ class MaxHeap
 {
 private:
 	HeapElement* heapArr; // Points to array
+	int* vertexPlaceInHeap; // vertexPlaceInHeap[v] Saves the index of vertex v in heapArr; 
 	int maxSize; // Max size of Heap
 	int heapSize; // Current size of Heap
 	int allocated; // 1 if Heap allocated memory
@@ -23,7 +24,7 @@ public:
 	MaxHeap(HeapElement A[], int size); // Converts an array which contains n numbers into heap
 	~MaxHeap();
 	int DeleteMax(); // Delete max which is found in the root of the heap, and fix heap
-	void Insert(HeapElement item); // Add a new leaf for item, and swap upwards until item is in its correct position
+//	void Insert(HeapElement item); לא בטוח שהפונקציה הזו בכלל בשימוש בתכנית. יש לבדוק!!! // Add a new leaf for item, and swap upwards until item is in its correct position
 	bool IsEmpty();
 	void IncreaseKey(int place, int newKey);
 	int Max(); // Returns the max element in the max heap == its root

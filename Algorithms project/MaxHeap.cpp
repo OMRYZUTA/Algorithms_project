@@ -5,6 +5,7 @@
 MaxHeap::MaxHeap(int max)
 {
 	heapArr = new HeapElement[max];
+	vertexPlaceInHeap = new int[max];
 	maxSize = max; 
 	heapSize = 0; 
 	allocated = 1; 
@@ -16,6 +17,13 @@ MaxHeap::MaxHeap(HeapElement A[], int size)
 
 	heapArr = A; // Assign array A to data pointer
 	allocated = 0; // Memory not allocated by heap
+
+	vertexPlaceInHeap = new int[heapSize];
+	for (int i = 0; i < heapSize; i++)
+	{
+		// each data field in A[0]...A[n] is unique, so we will fill properly each spot in the vertexPlaceInHeap array
+		vertexPlaceInHeap[A[i].getdata()] = i;//saves the current index of vertex A[i]  
+	}
 
 	BuildHeap(A, size); // Builds heap
 }
@@ -34,6 +42,9 @@ MaxHeap::~MaxHeap()
 	if (allocated)
 		delete[] heapArr;
 	heapArr = nullptr;
+
+	delete[] vertexPlaceInHeap;
+	vertexPlaceInHeap = nullptr;
 }
 
 int MaxHeap::Parent(int node)
@@ -74,6 +85,8 @@ void MaxHeap::FixHeap(int node)
 	// Swap values if necessary and continue fixing the heap towards the leaves
 	if (max != node)
 	{
+		vertexPlaceInHeap[heapArr[node].getdata()] = max;
+		vertexPlaceInHeap[heapArr[max].getdata()] = node;
 		swap(heapArr[node], heapArr[max]);
 		FixHeap(max);
 	}
@@ -88,13 +101,17 @@ int MaxHeap::DeleteMax()
 	}
 
 	int max = heapArr[0].getdata();
+
+	vertexPlaceInHeap[heapArr[0].getdata()] = -1; //value in heapArr[0] is going to be removed.
 	heapSize--;
+	vertexPlaceInHeap[heapArr[heapSize].getdata()] = 0; //לא בטוח שצריך
 	heapArr[0] = heapArr[heapSize];
 	FixHeap(0);
 	return max;
 }
 
-void MaxHeap::Insert(HeapElement item)
+
+/*void MaxHeap::Insert(HeapElement item) // לא בטוח שהפונקציה הזו בכלל בשימוש בתכנית. יש לבדוק!!!
 {
 	if (heapSize == maxSize)
 	{
@@ -104,15 +121,19 @@ void MaxHeap::Insert(HeapElement item)
 
 	int i = heapSize;
 	heapSize++;
+	// כנראה הפונקציה לא בשימוש, אבל אם כן צריך לחשוב איך מטפלים כאן במערך עזר כשהערימה גדלה
 
 	while ((i > 0) && ((heapArr[Parent(i)].getkey()) < (item.getkey())))
 	{
+		vertexPlaceInHeap[heapArr[Parent(i)].getdata()] = i;
 		heapArr[i] = heapArr[Parent(i)];
 		i = Parent(i);
 	}
 
+	vertexPlaceInHeap[item.getdata()] = i;
 	heapArr[i] = item;
-}
+}*/
+
 
 bool MaxHeap::IsEmpty()
 {
@@ -124,17 +145,22 @@ bool MaxHeap::IsEmpty()
 
 void MaxHeap::IncreaseKey(int place, int newKey)
 {
-	if (heapArr[place].getkey() > newKey)
+	// place is the vertex "name" (1 to n), placeInHeap is the index of this vertex in the heap.
+	int placeInHeap = vertexPlaceInHeap[place]; 
+
+	if (heapArr[placeInHeap].getkey() > newKey)
 	{ 
 		cout << "newKey is smaller than current key\n";
 		return;
     }
 
-	heapArr[place].setkey(newKey);
-	while ((place > 0) && ((heapArr[Parent(place)].getkey()) < (heapArr[place].getkey())))
+	heapArr[placeInHeap].setkey(newKey);
+	while ((placeInHeap > 0) && ((heapArr[Parent(placeInHeap)].getkey()) < (heapArr[placeInHeap].getkey())))
 	{
-		swap(heapArr[place], heapArr[Parent(place)]);
-		place = Parent(place);
+		vertexPlaceInHeap[heapArr[placeInHeap].getdata()] = Parent(placeInHeap);
+		vertexPlaceInHeap[heapArr[Parent(placeInHeap)].getdata()] = placeInHeap;
+		swap(heapArr[placeInHeap], heapArr[Parent(placeInHeap)]);
+		placeInHeap = Parent(placeInHeap);
 	}
 
 }
