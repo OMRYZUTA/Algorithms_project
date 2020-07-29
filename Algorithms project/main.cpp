@@ -44,48 +44,29 @@ using namespace std;
 
 void main()
 {
-     //int m_numOfVertexes, numOfAdjes, m_sVertex, m_tVertex;
-     //ifstream inFile("input3.txt"); // opening file called "input.txt"
-     //inFile >> m_numOfVertexes >> numOfAdjes >> m_sVertex >> m_tVertex;  //initialize those variables
-     //Graph g1(m_numOfVertexes, numOfAdjes, m_sVertex - 1, m_tVertex - 1); // minus 1 for 
-     //int fileInputVertex, fileInputneighbor, fileInputEdgeCapacity;
-     //for (int i = 0; i < numOfAdjes; i++)
-     //{
-     //     inFile >> fileInputVertex >> fileInputneighbor >> fileInputEdgeCapacity;
-     //     // in the input file the vertex starts from 1. therefor the minus 1
-     //     g1.addEdgeCapacity(fileInputVertex - 1, fileInputneighbor - 1, fileInputEdgeCapacity);
-     //}
-     //        cout <<"number Of Vertexes is: " <<m_numOfVertexes <<
-     //             " number Of edges is: "
-     //             << numOfAdjes << " s Vertex is: " << m_sVertex
-     //             << " t  Vertex is: " << m_tVertex <<endl;
-     //        g1.printGraph();
-     //FlowNetwork flow1(g1);
-     //    cout << "BFS Method:\n";
-
-     //    flow1.fordFulkersonMethodWithBFS();
-     //    flow1.printFlowNetwork();
-     //    FlowNetwork flow2(g1);
-     //    flow2.DijskstraVarationMethod();
-     //    flow2.printFlowNetwork();
-     HeapElement h1(1, 1);
-     HeapElement h2(2, 2);
-     HeapElement h3(3, 3);
-     HeapElement h4(4, 4);
-     HeapElement h5(5, 5);
-     HeapElement* heapArr = new HeapElement[5];
-     heapArr[0] = h1;
-     heapArr[1] = h2;
-     heapArr[2] = h3;
-     heapArr[3] = h4;
-     heapArr[4] = h5;
-     MaxHeap myHeap(heapArr, 5);
-     myHeap.printHeap();
-     for (int i = 0; i < 5; i++)
+     int m_numOfVertexes, numOfAdjes, m_sVertex, m_tVertex;
+     ifstream inFile("input3.txt"); // opening file called "input.txt"
+     inFile >> m_numOfVertexes >> numOfAdjes >> m_sVertex >> m_tVertex;  //initialize those variables
+     Graph g1(m_numOfVertexes, numOfAdjes, m_sVertex - 1, m_tVertex - 1); // minus 1 for 
+     int fileInputVertex, fileInputneighbor, fileInputEdgeCapacity;
+     for (int i = 0; i < numOfAdjes; i++)
      {
-          myHeap.IncreaseKey(i+1, i+6);
-          cout << "___________ \n";
-          myHeap.printHeap();
+          inFile >> fileInputVertex >> fileInputneighbor >> fileInputEdgeCapacity;
+          // in the input file the vertex starts from 1. therefor the minus 1
+          g1.addEdgeCapacity(fileInputVertex - 1, fileInputneighbor - 1, fileInputEdgeCapacity);
      }
-     delete[] heapArr;
+             cout <<"number Of Vertexes is: " <<m_numOfVertexes <<
+                  " number Of edges is: "
+                  << numOfAdjes << " s Vertex is: " << m_sVertex
+                  << " t  Vertex is: " << m_tVertex <<endl;
+             g1.printGraph();
+     FlowNetwork flow1(g1);
+         cout << "BFS Method:\n";
+
+         flow1.fordFulkersonMethodWithBFS();
+         flow1.printFlowNetwork();
+         FlowNetwork flow2(g1);
+         flow2.DijskstraVarationMethod();
+         flow2.printFlowNetwork();
+
 }

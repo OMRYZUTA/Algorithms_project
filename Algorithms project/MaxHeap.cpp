@@ -21,6 +21,10 @@ MaxHeap::MaxHeap(HeapElement A[], int size)
 	m_vertexPlaceInHeap = new int[m_heapSize];
 	for (int i = 0; i < m_heapSize; i++)
 	{
+		if (A[i].getdata() >= m_maxSize)
+		{
+			cout << "Error! data is out of bounds" << endl;
+		}
 		// each data field in A[0]...A[n] is unique, so we will fill properly each spot in the vertexPlaceInHeap array
 		m_vertexPlaceInHeap[A[i].getdata()] = i;//saves the current index of vertex A[i]  
 	}
