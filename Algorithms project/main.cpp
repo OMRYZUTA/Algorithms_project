@@ -45,7 +45,7 @@ using namespace std;
 void main()
 {
      int m_numOfVertexes, numOfAdjes, m_sVertex, m_tVertex;
-     ifstream inFile("input3.txt"); // opening file called "input.txt"
+     ifstream inFile("input.txt"); // opening file called "input.txt"
      inFile >> m_numOfVertexes >> numOfAdjes >> m_sVertex >> m_tVertex;  //initialize those variables
      Graph g1(m_numOfVertexes, numOfAdjes, m_sVertex - 1, m_tVertex - 1); // minus 1 for 
      int fileInputVertex, fileInputneighbor, fileInputEdgeCapacity;
@@ -66,7 +66,7 @@ void main()
          flow1.fordFulkersonMethodWithBFS();
          flow1.printFlowNetwork();
          FlowNetwork flow2(g1);
-         flow2.DijskstraVarationMethod();
+         flow2.fordFulkersonMethodWithDijskstraVaration();
          flow2.printFlowNetwork();
 
 }

@@ -227,8 +227,9 @@ int* FlowNetwork::DijskstraVarationMethod()
 {
      // creating array in order to create maxHeap
      int* pArray = new int[m_graph.getNumOfVertexes()];
+     int* dArray = new int[m_graph.getNumOfVertexes()];
      HeapElement* heapElementsArray = new HeapElement[m_graph.getNumOfVertexes()];
-     initialzeSingleSource(heapElementsArray, pArray);
+     initialzeSingleSource(heapElementsArray, pArray, dArray);
      MaxHeap maxHeap(heapElementsArray,m_graph.getNumOfVertexes());
      //delete later:
      maxHeap.printHeap();
@@ -242,45 +243,61 @@ int* FlowNetwork::DijskstraVarationMethod()
           Node* tempNeighbor = neighbors.getHead();
           while (tempNeighbor)
           {
-               relax(tempVertex, tempNeighbor->getData(), heapElementsArray, pArray, maxHeap);
+               relax(tempVertex, tempNeighbor->getData(), pArray, maxHeap, dArray);
                tempNeighbor = tempNeighbor->getNext();
           }
+     }
+     //delete later:
+     for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
+     {
+          cout << " " << pArray[i]+1;
+
      }
 
      return pArray; 
 }
 
-void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_pArray)
+void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_pArray,  int* i_dArray)
 {
      for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
      {
           i_ElementHeapArray[i].setdata(i);
           i_ElementHeapArray[i].setkey(INFINITY_VAL);
+          i_dArray[i]=INFINITY_VAL;
           i_pArray[i] = NO_PARENT;
      }
      i_ElementHeapArray[m_graph.getSvertex()].setkey(0);// maybe because we use max heap we need to make it something else. delete later
 }
 
-void FlowNetwork::relax(int i_uVertex, int i_vVertex ,HeapElement* i_ElementHeapArray, int* i_pArray, MaxHeap & i_maxHeap)
+void FlowNetwork::relax(int i_uVertex, int i_vVertex , int* i_pArray, MaxHeap & i_maxHeap, int * i_dArray)
 {
      int edgeUvCF = m_graph.getEdgeCf(i_uVertex, i_vVertex);
-     int pathThroughUCF = min(i_ElementHeapArray[i_uVertex].getkey(), edgeUvCF);
+     int pathThroughUCF = min(i_dArray[i_uVertex], edgeUvCF);
      // checks if the path to v vertex has a no cf 
-     if (i_ElementHeapArray[i_vVertex].getkey() == INFINITY_VAL)
+     if (i_dArray[i_vVertex] == INFINITY_VAL)
      {
-          i_ElementHeapArray[i_vVertex].setkey(edgeUvCF);
+          if (i_uVertex == m_graph.getSvertex())
+          {
+               i_dArray[i_vVertex] = edgeUvCF;
+               i_pArray[i_vVertex] = i_uVertex;
+          }
+          else
+          {
+               i_dArray[i_vVertex] = pathThroughUCF;
+               i_pArray[i_vVertex] = i_uVertex;
+          }
           i_pArray[i_vVertex] = i_uVertex;
         //increase key
-          i_maxHeap.IncreaseKey(i_vVertex, i_ElementHeapArray[i_vVertex].getkey());
+          i_maxHeap.IncreaseKey(i_vVertex, i_dArray[i_vVertex]);
 
      }
      //or less cf the if it uses u vertex
-     else if (pathThroughUCF > i_ElementHeapArray[i_vVertex].getkey())
+     else if (pathThroughUCF > i_dArray[i_vVertex])
      {
-          i_ElementHeapArray[i_vVertex].setkey(pathThroughUCF);
+          i_dArray[i_vVertex]=pathThroughUCF;
           i_pArray[i_vVertex] = i_uVertex;
           //increase key
-          i_maxHeap.IncreaseKey(i_vVertex, i_ElementHeapArray[i_vVertex].getkey());
+          i_maxHeap.IncreaseKey(i_vVertex, i_dArray[i_vVertex]);
      }
 }
 
