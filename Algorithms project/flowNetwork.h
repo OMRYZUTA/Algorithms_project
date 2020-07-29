@@ -41,7 +41,7 @@ public:
 
      int* DijskstraVarationMethod();
      void  initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_pArray);
-     void relax(int i_uVertex, int i_vVertex, HeapElement* i_ElementHeapArray, int* i_pArray, MaxHeap i_maxHeap);
+     void relax(int i_uVertex, int i_vVertex, HeapElement* i_ElementHeapArray, int* i_pArray, MaxHeap& i_maxHeap);
      void setCut(int* i_dArray);
      void printFlowNetwork();
      int min(int i_num1, int i_num2);

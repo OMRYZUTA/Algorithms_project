@@ -9,11 +9,11 @@
 class MaxHeap
 {
 private:
-	HeapElement* heapArr; // Points to array
-	int* vertexPlaceInHeap; // vertexPlaceInHeap[v] Saves the index of vertex v in heapArr; 
-	int maxSize; // Max size of Heap
-	int heapSize; // Current size of Heap
-	int allocated; // 1 if Heap allocated memory
+	HeapElement* m_heapArr; // Points to array
+	int* m_vertexPlaceInHeap; // vertexPlaceInHeap[v] Saves the index of vertex v in heapArr; 
+	int m_maxSize; // Max size of Heap
+	int m_heapSize; // Current size of Heap
+	int m_allocated; // 1 if Heap allocated memory
 	int Left(int node);
 	int Right(int node);
 	int Parent(int node);
@@ -29,5 +29,6 @@ public:
 	void IncreaseKey(int place, int newKey);
 	int Max(); // Returns the max element in the max heap == its root
     void swap(HeapElement& a, HeapElement& b);
+    void printHeap();
 };
 #endif // __MAX_HEAP_H

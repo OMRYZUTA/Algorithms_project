@@ -230,6 +230,8 @@ int* FlowNetwork::DijskstraVarationMethod()
      HeapElement* heapElementsArray = new HeapElement[m_graph.getNumOfVertexes()];
      initialzeSingleSource(heapElementsArray, pArray);
      MaxHeap maxHeap(heapElementsArray,m_graph.getNumOfVertexes());
+     //delete later:
+     maxHeap.printHeap();
      int tempVertex;
 
      while (!maxHeap.IsEmpty())
@@ -241,6 +243,7 @@ int* FlowNetwork::DijskstraVarationMethod()
           while (tempNeighbor)
           {
                relax(tempVertex, tempNeighbor->getData(), heapElementsArray, pArray, maxHeap);
+               tempNeighbor = tempNeighbor->getNext();
           }
      }
 
@@ -255,10 +258,10 @@ void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_
           i_ElementHeapArray[i].setkey(INFINITY_VAL);
           i_pArray[i] = NO_PARENT;
      }
-     i_ElementHeapArray[0].setkey(0);// maybe because we use max heap we need to make it something else. delete later
+     i_ElementHeapArray[m_graph.getSvertex()].setkey(0);// maybe because we use max heap we need to make it something else. delete later
 }
 
-void FlowNetwork::relax(int i_uVertex, int i_vVertex ,HeapElement* i_ElementHeapArray, int* i_pArray, MaxHeap i_maxHeap)
+void FlowNetwork::relax(int i_uVertex, int i_vVertex ,HeapElement* i_ElementHeapArray, int* i_pArray, MaxHeap & i_maxHeap)
 {
      int edgeUvCF = m_graph.getEdgeCf(i_uVertex, i_vVertex);
      int pathThroughUCF = min(i_ElementHeapArray[i_uVertex].getkey(), edgeUvCF);
