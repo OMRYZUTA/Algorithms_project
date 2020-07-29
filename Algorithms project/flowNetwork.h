@@ -9,10 +9,11 @@
 #include "Queue.h"
 #include "MaxHeap.h"
 
+
 using namespace std;
 
-constexpr int INFINITY_val = -1;
-constexpr int NO_parent = -2;
+constexpr int INFINITY_VAL = -1;
+constexpr int NO_PARENT = -2;
 class FlowNetwork
 {
 private:
@@ -36,11 +37,14 @@ public:
      void increaseFlow(List i_trackFromStoT, int i_flowToIncrease);
      int fordFulkersonMethodWithBFS();
      int  getCurrentFlow();
-     
-     int dijskstraVarationMethod();
+     int fordFulkersonMethodWithDijskstraVaration();
 
+     int* DijskstraVarationMethod();
+     void  initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_pArray);
+     void relax(int i_uVertex, int i_vVertex, HeapElement* i_ElementHeapArray, int* i_pArray, MaxHeap i_maxHeap);
      void setCut(int* i_dArray);
      void printFlowNetwork();
+     int min(int i_num1, int i_num2);
 };
 
 

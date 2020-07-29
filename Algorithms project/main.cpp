@@ -61,33 +61,13 @@ void main()
                   << " t  Vertex is: " << m_tVertex <<endl;
              g1.printGraph();*/
      FlowNetwork flow1(g1);
-     /*    cout << "BFS Method:\n";
+         cout << "BFS Method:\n";
 
          flow1.fordFulkersonMethodWithBFS();
-         flow1.printFlowNetwork();*/
-     HeapElement h1(1,2), h2(2, 3), h3(3, 4), h4(4,5), h5(5,6);
-     HeapElement* A = new HeapElement[5];
-     A[0] = h1;
-     A[1] = h2; 
-     A[2] = h3;
-     A[3] = h4;
-     A[4] = h5;
-          MaxHeap testHeap(A,5);
-          cout << "the max Node is: " << testHeap.DeleteMax() << endl;
-          HeapElement a(7, 10);
-          testHeap.Insert(a);
-          cout << "the max Node NOWWW is: " << testHeap.DeleteMax() << endl;
-          testHeap.DeleteMax();
-          testHeap.DeleteMax();
-          testHeap.DeleteMax();
-          testHeap.DeleteMax();
-          if (testHeap.IsEmpty())
-          {
-               cout << "Heap is empty!";
-          }
-          MaxHeap testHeap2(A, 5);
-          testHeap2.IncreaseKey(4, 10);
-          cout << "the Max is" << testHeap.Max();
-          testHeap2.swap(h1, h2);
+         flow1.printFlowNetwork();
+         FlowNetwork flow2(g1);
+         flow2.DijskstraVarationMethod();
+         flow2.printFlowNetwork();
+
 
 }
