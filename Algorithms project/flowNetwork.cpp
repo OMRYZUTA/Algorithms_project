@@ -57,7 +57,7 @@ int* FlowNetwork::BFS(int *i_dArr)
                     tempNode = tempNode->getNext();
                }
           }
-        
+
           return pArr;
 }
 
@@ -114,10 +114,23 @@ List FlowNetwork::findRouteFromStoT(int* i_pArr)
      List routeFromStoT; //building the track from parents array
      routeFromStoT.addNodeToHead(m_graph.getTvertex());// adding t to be eventually the tail
      int tempParent = i_pArr[m_graph.getTvertex()];
+     int count = 0;
      while (tempParent != NO_PARENT)
      {
+    
           routeFromStoT.addNodeToHead(tempParent);
           tempParent = i_pArr[tempParent];
+          count++;
+          if (tempParent==m_graph.getSvertex())
+          { 
+               routeFromStoT.addNodeToHead(tempParent);
+               break;
+          }
+          if (count > m_graph.getNumOfVertexes())
+          {
+               break;
+          }
+
      }
      // return List that represent path of vertexes from s to t 
      if (routeFromStoT.getHead()->getData() != m_graph.getSvertex())
@@ -231,8 +244,7 @@ int* FlowNetwork::DijskstraVarationMethod()
      HeapElement* heapElementsArray = new HeapElement[m_graph.getNumOfVertexes()];
      initialzeSingleSource(heapElementsArray, pArray, dArray);
      MaxHeap maxHeap(heapElementsArray,m_graph.getNumOfVertexes());
-     //delete later:
-     maxHeap.printHeap();
+ 
      int tempVertex;
 
      while (!maxHeap.IsEmpty())
@@ -245,15 +257,26 @@ int* FlowNetwork::DijskstraVarationMethod()
           {
                relax(tempVertex, tempNeighbor->getData(), pArray, maxHeap, dArray);
                tempNeighbor = tempNeighbor->getNext();
+
           }
+          //delete later:
+          cout << endl;
+          maxHeap.printHeap();
      }
      //delete later:
+     cout << "pArray: " << endl;
      for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
      {
-          cout << " " << pArray[i]+1;		  
+          cout  << " " << pArray[i]+1;
      }
 	 cout << endl; //change niv 29.7 for after ptinting p array, looks better
-
+        //delete later:
+      cout << "dArray: " << endl;
+      for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
+      {
+           cout  << " " <<dArray[i] ;
+      }
+      cout << endl;
      return pArray; 
 }
 
@@ -268,6 +291,7 @@ void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_
      }
      i_ElementHeapArray[m_graph.getSvertex()].setkey(0);// maybe because we use max heap we need to make it something else. delete later
 	 i_dArray[m_graph.getSvertex()] = 0;     //change niv 29.7         added this, it seems we need it
+ 
 }
 
 void FlowNetwork::relax(int i_uVertex, int i_vVertex , int* i_pArray, MaxHeap & i_maxHeap, int * i_dArray)
@@ -275,25 +299,23 @@ void FlowNetwork::relax(int i_uVertex, int i_vVertex , int* i_pArray, MaxHeap & 
      int edgeUvCF = m_graph.getEdgeCf(i_uVertex, i_vVertex); 
      int pathThroughUCF = min(i_dArray[i_uVertex], edgeUvCF);
      // checks if the path to v vertex has a no cf 
-     /*if (i_dArray[i_vVertex] == INFINITY_VAL)
+     if (i_dArray[i_vVertex] == INFINITY_VAL)
      {
           if (i_uVertex == m_graph.getSvertex())
           {
                i_dArray[i_vVertex] = edgeUvCF;
-               i_pArray[i_vVertex] = i_uVertex;
           }
           else
           {
                i_dArray[i_vVertex] = pathThroughUCF;
-               i_pArray[i_vVertex] = i_uVertex;
           }
           i_pArray[i_vVertex] = i_uVertex;
         //increase key
           i_maxHeap.IncreaseKey(i_vVertex, i_dArray[i_vVertex]);
 
-     }*/
+     }
      //or less cf the if it uses u vertex
-     /*else*/ if (pathThroughUCF > i_dArray[i_vVertex]) //            change 29.7 niv:          seems we dont need the above "if" at all! still need to check
+     else if (pathThroughUCF > i_dArray[i_vVertex]) //            change 29.7 niv:          seems we dont need the above "if" at all! still need to check
      {
           i_dArray[i_vVertex]=pathThroughUCF;
           i_pArray[i_vVertex] = i_uVertex;
