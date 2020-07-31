@@ -217,32 +217,34 @@ int FlowNetwork::fordFulkersonMethodWithDijskstraVaration()
      int arrSize = m_graph.getNumOfVertexes();
      int* dArr = new int[arrSize];
      int* tempParentsArray = nullptr;
-     tempParentsArray = DijskstraVarationMethod();
+     tempParentsArray = DijskstraVarationMethod(dArr);
      List tempRouteFromStoT = findRouteFromStoT(tempParentsArray);
      int tempMinCf = 0;
      while (!tempRouteFromStoT.isEmpty())
      {
           tempMinCf = findMinCfInRoute(tempRouteFromStoT);
           increaseFlow(tempRouteFromStoT, tempMinCf);
-          tempParentsArray = DijskstraVarationMethod();
+          tempParentsArray = DijskstraVarationMethod(dArr);
           tempRouteFromStoT = findRouteFromStoT(tempParentsArray); //move operator =
           ++m_numOfiterations;
      }
      m_maxFlow = getCurrentFlow(); //because after the last iteration, the flow is maximal
-     BFS(dArr);
+    int* tempPArr= BFS(dArr);// memory leak delete later
+    delete[] tempPArr;
      setCut(dArr);// now it is possible to set the minCut.
      delete[]dArr;
+
      return m_maxFlow;
 
 }
 
-int* FlowNetwork::DijskstraVarationMethod()
+int* FlowNetwork::DijskstraVarationMethod(int* i_dArray)
 {
      // creating array in order to create maxHeap 
-     int* pArray = new int[m_graph.getNumOfVertexes()];               //niv 29/7 note: we need to free the array???
-     int* dArray = new int[m_graph.getNumOfVertexes()];               //niv 29/7 note: we need to free the array???
+     int* pArray = new int[m_graph.getNumOfVertexes()];               //niv 29/7 note: we need to free the array??? no, find RouteFromStoT free's it
+   
      HeapElement* heapElementsArray = new HeapElement[m_graph.getNumOfVertexes()];
-     initialzeSingleSource(heapElementsArray, pArray, dArray);
+     initialzeSingleSource(heapElementsArray, pArray, i_dArray);
      MaxHeap maxHeap(heapElementsArray,m_graph.getNumOfVertexes());
  
      int tempVertex;
@@ -255,7 +257,7 @@ int* FlowNetwork::DijskstraVarationMethod()
           Node* tempNeighbor = neighbors.getHead();
           while (tempNeighbor)
           {
-               relax(tempVertex, tempNeighbor->getData(), pArray, maxHeap, dArray);
+               relax(tempVertex, tempNeighbor->getData(), pArray, maxHeap, i_dArray);
                tempNeighbor = tempNeighbor->getNext();
 
           }
@@ -274,9 +276,10 @@ int* FlowNetwork::DijskstraVarationMethod()
       cout << "dArray: " << endl;
       for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
       {
-           cout  << " " <<dArray[i] ;
+           cout  << " " <<i_dArray[i] ;
       }
       cout << endl;
+      delete[] heapElementsArray;
      return pArray; 
 }
 
@@ -289,8 +292,8 @@ void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_
           i_dArray[i]=INFINITY_VAL;
           i_pArray[i] = NO_PARENT;
      }
-     i_ElementHeapArray[m_graph.getSvertex()].setkey(0);// maybe because we use max heap we need to make it something else. delete later
-	 i_dArray[m_graph.getSvertex()] = 0;     //change niv 29.7         added this, it seems we need it
+     i_ElementHeapArray[m_graph.getSvertex()].setkey(INFINITY_INT);// maybe because we use max heap we need to make it something else. delete later
+	 i_dArray[m_graph.getSvertex()] = INFINITY_INT;     //change niv 29.7         added this, it seems we need it
  
 }
 
@@ -299,7 +302,7 @@ void FlowNetwork::relax(int i_uVertex, int i_vVertex , int* i_pArray, MaxHeap & 
      int edgeUvCF = m_graph.getEdgeCf(i_uVertex, i_vVertex); 
      int pathThroughUCF = min(i_dArray[i_uVertex], edgeUvCF);
      // checks if the path to v vertex has a no cf 
-     if (i_dArray[i_vVertex] == INFINITY_VAL)
+     if (i_dArray[i_vVertex] == INFINITY_VAL&& i_dArray[i_uVertex] != INFINITY_VAL)
      {
           if (i_uVertex == m_graph.getSvertex())
           {
@@ -315,7 +318,7 @@ void FlowNetwork::relax(int i_uVertex, int i_vVertex , int* i_pArray, MaxHeap & 
 
      }
      //or less cf the if it uses u vertex
-     else if (pathThroughUCF > i_dArray[i_vVertex]) //            change 29.7 niv:          seems we dont need the above "if" at all! still need to check
+     else if (pathThroughUCF > i_dArray[i_vVertex] && i_dArray[i_uVertex] != INFINITY_VAL) //            change 29.7 niv:          seems we dont need the above "if" at all! still need to check
      {
           i_dArray[i_vVertex]=pathThroughUCF;
           i_pArray[i_vVertex] = i_uVertex;

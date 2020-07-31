@@ -8,10 +8,10 @@
 #include "List.h"
 #include "Queue.h"
 #include "MaxHeap.h"
-
+#include <limits>
 
 using namespace std;
-
+constexpr int INFINITY_INT = std::numeric_limits<int>::max();
 constexpr int INFINITY_VAL = -1;
 constexpr int NO_PARENT = -2;
 class FlowNetwork
@@ -39,7 +39,7 @@ public:
      int  getCurrentFlow();
      int fordFulkersonMethodWithDijskstraVaration();
 
-     int* DijskstraVarationMethod();
+     int* DijskstraVarationMethod(int* i_dArray);
      void  initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_pArray ,int* i_dArray);
      void relax(int i_uVertex, int i_vVertex,  int* i_pArray, MaxHeap& i_maxHeap, int *i_dArray);
      void setCut(int* i_dArray);
