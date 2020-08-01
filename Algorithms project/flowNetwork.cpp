@@ -352,11 +352,11 @@ void FlowNetwork::printFlowNetwork()
      
 }
 
-int FlowNetwork::min(int num1, int num2)
+int FlowNetwork::min(int i_num1, int i_num2)
 {
-     if (num1 < num2)
+     if (i_num1 < i_num2)
      {
-          return num1;
+          return i_num1;
      }
-     return num2;
+     return i_num2;
 }

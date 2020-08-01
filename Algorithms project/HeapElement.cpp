@@ -14,10 +14,10 @@ HeapElement::HeapElement(int i_data, int i_key)
 	m_key = i_key;
 }
 
-HeapElement::HeapElement(HeapElement& other)
+HeapElement::HeapElement(HeapElement& i_other)
 {
-	m_data = other.m_data;
-	m_key = other.m_key;
+	m_data = i_other.m_data;
+	m_key = i_other.m_key;
 }
 
 HeapElement::~HeapElement()

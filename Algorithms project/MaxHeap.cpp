@@ -2,40 +2,40 @@
 #pragma warning(disable : 4996)
 
 
-MaxHeap::MaxHeap(int max)//
+MaxHeap::MaxHeap(int i_max)//
 {
-	m_heapArr = new HeapElement[max];
-	m_vertexPlaceInHeap = new int[max];
-	m_maxSize = max; 
+	m_heapArr = new HeapElement[i_max];
+	m_vertexPlaceInHeap = new int[i_max];
+	m_maxSize = i_max; 
 	m_heapSize = 0; 
 	m_allocated = 1; 
 }
 
-MaxHeap::MaxHeap(HeapElement A[], int size)
+MaxHeap::MaxHeap(HeapElement i_A[], int i_size)
 {
-	m_heapSize = m_maxSize = size;
+	m_heapSize = m_maxSize = i_size;
 
-	m_heapArr = A; // Assign array A to data pointer
+	m_heapArr = i_A; // Assign array A to data pointer
 	m_allocated = 0; // Memory not allocated by heap
 
 	m_vertexPlaceInHeap = new int[m_heapSize];
 	for (int i = 0; i < m_heapSize; i++)
 	{
-		if (A[i].getdata() >= m_maxSize)
+		if (i_A[i].getdata() >= m_maxSize)
 		{
 			cout << "Error! data is out of bounds" << endl;
 		}
 		// each data field in A[0]...A[n] is unique, so we will fill properly each spot in the vertexPlaceInHeap array
-		m_vertexPlaceInHeap[A[i].getdata()] = i;//saves the current index of vertex A[i]  
+		m_vertexPlaceInHeap[i_A[i].getdata()] = i;//saves the current index of vertex A[i]  
 	}
 
-	BuildHeap(A, size); // Builds heap
+	BuildHeap(i_A, i_size); // Builds heap
 }
 
-void MaxHeap::BuildHeap(HeapElement A[], int size)
+void MaxHeap::BuildHeap(HeapElement i_A[], int i_size)
 {
 	// Builds heap according to Floyd algorithm
-	for (int i = size / 2 - 1; i >= 0; i--)
+	for (int i = i_size / 2 - 1; i >= 0; i--)
 	{
 		FixHeap(i);
 	}
@@ -51,34 +51,34 @@ MaxHeap::~MaxHeap()
 	m_vertexPlaceInHeap = nullptr;
 }
 
-int MaxHeap::Parent(int node)
+int MaxHeap::Parent(int i_node)
 {
-	return (node - 1) / 2;
+	return (i_node - 1) / 2;
 }
 
-int MaxHeap::Left(int node)
+int MaxHeap::Left(int i_node)
 {
-	return (2 * node + 1);
+	return (2 * i_node + 1);
 }
 
-int MaxHeap::Right(int node)
+int MaxHeap::Right(int i_node)
 {
-	return (2 * node + 2);
+	return (2 * i_node + 2);
 }
 
-void MaxHeap::FixHeap(int node)
+void MaxHeap::FixHeap(int i_node)
 {
 	int max;
-	int left = Left(node);
-	int right = Right(node);
+	int left = Left(i_node);
+	int right = Right(i_node);
 
-	if ((left < m_heapSize) && ((m_heapArr[left].getkey()) > (m_heapArr[node]).getkey()))
+	if ((left < m_heapSize) && ((m_heapArr[left].getkey()) > (m_heapArr[i_node]).getkey()))
 	{
 		max = left;
 	}
 	else
 	{
-		max = node;
+		max = i_node;
 	}
 
 	if ((right < m_heapSize) && ((m_heapArr[right].getkey()) > (m_heapArr[max]).getkey()))
@@ -87,11 +87,11 @@ void MaxHeap::FixHeap(int node)
 	}
 
 	// Swap values if necessary and continue fixing the heap towards the leaves
-	if (max != node)
+	if (max != i_node)
 	{
-		m_vertexPlaceInHeap[m_heapArr[node].getdata()] = max;
-		m_vertexPlaceInHeap[m_heapArr[max].getdata()] = node;
-		swap(m_heapArr[node], m_heapArr[max]);
+		m_vertexPlaceInHeap[m_heapArr[i_node].getdata()] = max;
+		m_vertexPlaceInHeap[m_heapArr[max].getdata()] = i_node;
+		swap(m_heapArr[i_node], m_heapArr[max]);
 		FixHeap(max);
 	}
 }

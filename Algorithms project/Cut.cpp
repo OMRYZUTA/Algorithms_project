@@ -19,7 +19,7 @@ Cut::Cut(Cut& i_otherCut):m_sGroupOfVertexes(i_otherCut.m_sGroupOfVertexes)
 	
 }
 // to delete later?
-Cut::Cut(Cut&& other)
+Cut::Cut(Cut&& i_other)
 {
 
 }

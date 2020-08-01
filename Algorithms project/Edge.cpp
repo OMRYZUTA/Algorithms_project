@@ -15,11 +15,11 @@ Edge::Edge(int i_edgeCapacity, int i_edgeFlow, int i_edgeCf)
      m_edgeCf = i_edgeCf;
 }
 
-Edge::Edge(Edge& other)
+Edge::Edge(Edge& i_other)
 {
-     m_edgeCapacity = other.m_edgeCapacity;
-     m_edgeFlow = other.m_edgeFlow;
-     m_edgeCf = other.m_edgeCf;
+     m_edgeCapacity = i_other.m_edgeCapacity;
+     m_edgeFlow = i_other.m_edgeFlow;
+     m_edgeCf = i_other.m_edgeCf;
 }
 
 void Edge::setEdgeCapacity(int i_edgeCapacity)

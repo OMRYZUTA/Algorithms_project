@@ -15,7 +15,7 @@ private:
 public:
 	Graph();             // deafult c'tor
 	Graph(int i_numOfVertexes, int i_numOfEdges ,int i_sVertex, int i_tVertex);         // c'tor with arguments
-	Graph(Graph& other);        // copy c'tor
+	Graph(Graph& i_other);        // copy c'tor
 	~Graph();      // d'tor 
 	void makeEmptyGraph(int i_numOfVertexes);
 

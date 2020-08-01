@@ -24,12 +24,12 @@ Graph::Graph(int i_numOfVertexes = 0, int i_numOfEdges = 0, int i_sVertex = 0, i
 	// the matrix is initiated with Edge default c'tors
 }
 
-Graph::Graph(Graph& other)
+Graph::Graph(Graph& i_other)
 {
-	m_numOfVertexes = other.m_numOfVertexes;
-	m_numOfEdges = other.m_numOfEdges;
-	m_sVertex = other.m_sVertex;
-	m_tVertex = other.m_tVertex;
+	m_numOfVertexes = i_other.m_numOfVertexes;
+	m_numOfEdges = i_other.m_numOfEdges;
+	m_sVertex = i_other.m_sVertex;
+	m_tVertex = i_other.m_tVertex;
 	m_adjMatrix = new Edge* [m_numOfVertexes]; // making space for n rows
 	for (int row = 0; row < m_numOfVertexes; row++)
 	{
@@ -38,7 +38,7 @@ Graph::Graph(Graph& other)
 	}
 	for (int i = 0; i < m_numOfVertexes; i++)
 		for (int k = 0; k < m_numOfVertexes; k++)
-			m_adjMatrix[i][k] = other.m_adjMatrix[i][k]; // default opertor '=' will do the work for us
+			m_adjMatrix[i][k] = i_other.m_adjMatrix[i][k]; // default opertor '=' will do the work for us
 }
 
 Graph::~Graph()
