@@ -150,6 +150,7 @@
     <ClCompile Include="MaxHeap.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Queue.cpp" />
+    <ClCompile Include="Validator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cut.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="MaxHeap.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Queue.h" />
+    <ClInclude Include="Validator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
