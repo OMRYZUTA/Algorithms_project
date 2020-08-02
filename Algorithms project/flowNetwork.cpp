@@ -261,24 +261,9 @@ int* FlowNetwork::DijskstraVarationMethod(int* i_dArray)
                tempNeighbor = tempNeighbor->getNext();
 
           }
-          //delete later:
-          cout << endl;
-          maxHeap.printHeap();
+
      }
-     //delete later:
-     cout << "pArray: " << endl;
-     for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
-     {
-          cout  << " " << pArray[i]+1;
-     }
-	 cout << endl; //change niv 29.7 for after ptinting p array, looks better
-        //delete later:
-      cout << "dArray: " << endl;
-      for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
-      {
-           cout  << " " <<i_dArray[i] ;
-      }
-      cout << endl;
+   
       delete[] heapElementsArray;
      return pArray; 
 }
