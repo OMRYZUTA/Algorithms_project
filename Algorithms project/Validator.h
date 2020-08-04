@@ -6,21 +6,25 @@
 #include <stdlib.h>
 #include <fstream>
 #include <string>
-
-
+#include <cctype>
+#include <sstream>
 
 using namespace std;
 
 class Validator
 {
 private:
-	char* m_fileName;
+	const char* m_fileName;
+
 public:
-	Validator(char * i_fileName);
+	Validator(const char * i_fileName);
 	~Validator();
 	bool checkWholePageLogicly();
+	bool checkWholePageSpellCorrectness();
 	bool checkNegativeCf();
 	bool checkNumOfAdjes();
+	ifstream  checkFirstFourRows();
+	bool checkTheRestOfTheFile(ifstream i_inFile);
 
 };
 
