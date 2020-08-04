@@ -12,22 +12,68 @@ Validator::~Validator()
 
 }
 
+// no need to check if it's negative cause the spelling check will catch '-' anyway
 bool Validator::checkWholePageLogicly()
 {
-     bool answer = true;
-     if (checkNegativeCf())
+     int numOfVertexes, numOfEdges, sVertex, tVertex;
+     ifstream inFile(m_fileName); // opening file called "input.txt"
+     inFile >> numOfVertexes >> numOfEdges >> sVertex >> tVertex;  //initialize those variables
+
+     // if its there is more Edges than vertexes squared , it's not a simple graph
+     if (numOfVertexes * numOfVertexes <= numOfEdges)
      {
-          cout << "there is a Negative Cf in the input Graph. Error\n";
-          answer = false;
+          cout << "Error! too much Edges for a simple graph!";
+               exit(1);
      }
-     else if (checkNumOfAdjes())
+     if (numOfVertexes == 0)
      {
-          cout << " there is a wrong number of adjes. Error\n";
-          answer = false;
-          
+          cout << "Error! it's not a graph without any vertexes";
+          exit(1);
      }
-  
-     return answer;
+     if (sVertex > numOfVertexes || sVertex == 0)
+     {
+          cout << "Error! s vertex is inserted wrongly ";
+          exit(1);
+     }
+     if (tVertex > numOfVertexes || tVertex == 0)
+     {
+          cout << "Error! t vertex is inserted wrongly ";
+          exit(1);
+     }
+     Graph g1(numOfVertexes, numOfEdges, sVertex - 1, tVertex - 1); // minus 1 for 
+     int fileInputVertex, fileInputneighbor, fileInputEdgeCapacity;
+     int i;
+     for (i = 0;  inFile >> fileInputVertex; i++)// if reached eof, we want try to read
+     {
+          inFile  >> fileInputneighbor >> fileInputEdgeCapacity;
+          if (fileInputneighbor == fileInputVertex)
+          {
+               cout << "Error! no self loops, it's a simple graph";
+               exit(1);
+          }
+          if (fileInputEdgeCapacity == 0)
+          {
+               cout << "Error! no 0 capacity in this project";
+               exit(1);
+          }
+          if (g1.getEdgeCf(fileInputVertex - 1, fileInputneighbor - 1) != 0)
+          {
+               cout << "Error! no parallel edges in a simple graph! ";
+               exit(1);
+          }
+          // in the input file the vertex starts from 1. therefor the minus 1
+          g1.addEdgeCapacity(fileInputVertex - 1, fileInputneighbor - 1, fileInputEdgeCapacity);
+     }
+     if (numOfEdges != i)
+     {
+          cout << "Error! the number of rows doesn't equal to the number of the edges";
+          exit(1);
+     }
+     cout << "number Of Vertexes is: " << numOfVertexes <<
+          " number Of edges is: "
+          << numOfEdges << " s Vertex is: " << sVertex
+          << " t  Vertex is: " << tVertex << endl;
+     g1.printGraph();
 }
 
 bool Validator::checkWholePageSpellCorrectness()
@@ -97,7 +143,7 @@ bool Validator::checkWholePageSpellCorrectness()
      int numCounterInLine = 0;
      while (inFile >> charChecker1 && isNewLine && numCounterInLine < 4)
           {
-          cout << charChecker1;
+         
                if (charChecker1 < '0' || charChecker1>'9')
                {
                     if (charChecker1 == '\n')
@@ -146,7 +192,7 @@ bool Validator::checkWholePageSpellCorrectness()
           }
      if (numCounterInLine > 3)
      {
-          cout << "Error! there is more then 3 numbers in input" << endl;
+          cout << "Error! there is more then 3 numbers in an  input row" << endl;
           exit(1);
      }
 
@@ -155,15 +201,7 @@ bool Validator::checkWholePageSpellCorrectness()
      return answer;
 }
 
-bool Validator::checkNegativeCf()
-{
-     return false;
-}
 
-bool Validator::checkNumOfAdjes()
-{
-     return false;
-}
 
 
 

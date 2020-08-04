@@ -44,11 +44,12 @@ using namespace std;
 
 void main()
 {
-     const char* fileName = "input20.txt";
+     const char* fileName = "input29.txt";
 
      // checking spelling mistakes:
      Validator validator1(fileName);
      validator1.checkWholePageSpellCorrectness();
+     validator1.checkWholePageLogicly();
      int numOfVertexes, numOfAdjes, sVertex, tVertex;
      ifstream inFile(fileName); // opening file called "input.txt"
      inFile >> numOfVertexes >> numOfAdjes >> sVertex >> tVertex;  //initialize those variables

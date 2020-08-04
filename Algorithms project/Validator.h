@@ -8,6 +8,7 @@
 #include <string>
 #include <cctype>
 #include <sstream>
+#include "Graph.h"
 
 using namespace std;
 
@@ -21,10 +22,7 @@ public:
 	~Validator();
 	bool checkWholePageLogicly();
 	bool checkWholePageSpellCorrectness();
-	bool checkNegativeCf();
-	bool checkNumOfAdjes();
-	ifstream  checkFirstFourRows();
-	bool checkTheRestOfTheFile(ifstream i_inFile);
+
 
 };
 
