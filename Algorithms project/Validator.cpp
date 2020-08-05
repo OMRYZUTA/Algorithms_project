@@ -13,7 +13,7 @@ Validator::~Validator()
 }
 
 // no need to check if it's negative cause the spelling check will catch '-' anyway
-bool Validator::checkWholePageLogicly()
+void Validator::checkWholePageLogicly()
 {
      int numOfVertexes, numOfEdges, sVertex, tVertex;
      ifstream inFile(m_fileName); // opening file called "input.txt"
@@ -69,16 +69,12 @@ bool Validator::checkWholePageLogicly()
           cout << "Error! the number of rows doesn't equal to the number of the edges";
           exit(1);
      }
-     cout << "number Of Vertexes is: " << numOfVertexes <<
-          " number Of edges is: "
-          << numOfEdges << " s Vertex is: " << sVertex
-          << " t  Vertex is: " << tVertex << endl;
-     g1.printGraph();
+     inFile.close();
 }
 
-bool Validator::checkWholePageSpellCorrectness()
+void Validator::checkWholePageSpellCorrectness()
 {
-     bool answer = true;
+     
      // checking spell in the first 4 inputs
      ifstream inFile(m_fileName); // opening file called "input.txt"
      char charChecker1;
@@ -196,9 +192,7 @@ bool Validator::checkWholePageSpellCorrectness()
           exit(1);
      }
 
-
-
-     return answer;
+     inFile.close();
 }
 
 

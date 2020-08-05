@@ -33,7 +33,7 @@ Graph::Graph(Graph& i_other)
 	m_adjMatrix = new Edge* [m_numOfVertexes]; // making space for n rows
 	for (int row = 0; row < m_numOfVertexes; row++)
 	{
-		m_adjMatrix[row] = new Edge[m_numOfVertexes]; //making space for n ints/ edges delete later
+		m_adjMatrix[row] = new Edge[m_numOfVertexes]; //making space for n  edges
 
 	}
 	for (int i = 0; i < m_numOfVertexes; i++)

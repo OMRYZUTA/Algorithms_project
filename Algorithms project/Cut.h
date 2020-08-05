@@ -18,8 +18,8 @@ public:
      Cut();//default c'tor
      //Cut(int* i_SgroupOfVertexes, int* i_TgroupOfVertexes);// c'tor
      Cut(Cut& i_otherCut);//copy c'tor
-     Cut(Cut&& i_otherCut);//move c'tor
-     ~Cut();
+     
+   virtual  ~Cut();
      void showCut();
      void addVertexToS(int i_vertex);
      void addVertexToT(int i_vertex);

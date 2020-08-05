@@ -7,11 +7,7 @@ Queue::Queue()
 	m_tail = nullptr;
 }
 
-Queue::Queue(Node* i_head, Node* i_tail)// do we need this? delete later
-{
-	m_head = i_head;
-	m_tail = i_tail;
-}
+
 
 Queue::Queue(Queue& i_otherQueue) // we need to fix this Queue
 {

@@ -15,7 +15,7 @@ public:
 	HeapElement();   //default c'tor
 	HeapElement(int i_data, int i_key); //c'tor
 	HeapElement(HeapElement& other);// copy c'tor
-	~HeapElement();// d'tor
+	virtual	~HeapElement();// d'tor
 	void setdata(int i_HeapElementData);
     void setkey(int i_HeapElementkey);
 	int getdata();

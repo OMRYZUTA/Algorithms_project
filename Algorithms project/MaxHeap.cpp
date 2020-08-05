@@ -2,7 +2,7 @@
 #pragma warning(disable : 4996)
 
 
-MaxHeap::MaxHeap(int i_max)//
+MaxHeap::MaxHeap(int i_max)
 {
 	m_heapArr = new HeapElement[i_max];
 	m_vertexPlaceInHeap = new int[i_max];
@@ -115,28 +115,7 @@ int MaxHeap::DeleteMax()
 }
 
 
-/*void MaxHeap::Insert(HeapElement item) // לא בטוח שהפונקציה הזו בכלל בשימוש בתכנית. יש לבדוק!!!
-{
-	if (heapSize == maxSize)
-	{
-		cout << "Error: HEAP FULL\n";
-		exit(1);
-	}
 
-	int i = heapSize;
-	heapSize++;
-	// כנראה הפונקציה לא בשימוש, אבל אם כן צריך לחשוב איך מטפלים כאן במערך עזר כשהערימה גדלה
-
-	while ((i > 0) && ((heapArr[Parent(i)].getkey()) < (item.getkey())))
-	{
-		vertexPlaceInHeap[heapArr[Parent(i)].getdata()] = i;
-		heapArr[i] = heapArr[Parent(i)];
-		i = Parent(i);
-	}
-
-	vertexPlaceInHeap[item.getdata()] = i;
-	heapArr[i] = item;
-}*/
 
 
 bool MaxHeap::IsEmpty()

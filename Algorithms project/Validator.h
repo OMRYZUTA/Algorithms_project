@@ -19,9 +19,9 @@ private:
 
 public:
 	Validator(const char * i_fileName);
-	~Validator();
-	bool checkWholePageLogicly();
-	bool checkWholePageSpellCorrectness();
+	virtual	~Validator();
+	void checkWholePageLogicly(); // checking if the graph is simple, if the numbers are reasonable
+	void checkWholePageSpellCorrectness();// checking that the chars inserted are only numeric, in the right order
 
 
 };

@@ -15,7 +15,7 @@ public:
      Edge();   //default c'tor
      Edge(int i_edgeCapacity, int i_edgeFlow, int i_edgeCf); //c'tor
      Edge(Edge& i_otherEdge);// copy c'tor
-                             // we don't need any move c'tor cause there is no pointers delete later.
+                             // we don't need any move c'tor cause there are no pointers 
 
 //setters:
      void setEdgeCapacity(int i_edgeCapacity);
@@ -27,6 +27,6 @@ public:
 
      void resetEdge(); // make flow capacity and cf equal to zero
      
-     ~Edge();// d'tor
+     virtual  ~Edge();// d'tor
 };
 #endif

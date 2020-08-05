@@ -15,7 +15,7 @@ public:
 	Node();                                       // Default c'tor
 	Node(int i_data, Node* i_nextNode);                  // c'tor
 	Node(Node* i_OtherNode);                            // copy c'tor
-	~Node();                                      // d'tor
+	virtual	~Node();                                      // d'tor
 	void insertAfter(Node* i_newNodeToAdd);              // Insert Node after current Node
 	Node* deleteAfter(Node* i_deleteAfterThisNode);             // Delete Node after current Node
 

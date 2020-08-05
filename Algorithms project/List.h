@@ -17,7 +17,7 @@ public:
 	List(Node* i_head, Node* i_tail);                       // c'tor
 	List(List& i_otherList);                            // copy c'tor
 	List(List&& i_otherList);                           // move c'tor
-	~List();             // d'tor
+	virtual	~List();             // d'tor
 
 	const List& operator=(List&& i_otherList);
 

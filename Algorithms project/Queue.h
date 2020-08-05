@@ -15,9 +15,9 @@ private:
 
 public:
 	Queue();                                       // c'tor
-	Queue(Node* i_head, Node* i_tail);                       // c'tor
+	
 	Queue(Queue& i_otherQueue);                           // copy c'tor
-	~Queue();                                      // d'tor
+	virtual	~Queue();                                      // d'tor
 	void makeEmpty();
 	bool isEmpty();
 	void enqueue(int i_data);

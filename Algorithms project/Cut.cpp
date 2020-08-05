@@ -6,23 +6,14 @@ Cut::Cut()
 
 
 }
-//Cut::Cut(int* S, int* T)
-//{
-//	this->S = S;
-//	this->T = T; //maybe doing new in here?
-//}
-// to delete later?
+
 
 Cut::Cut(Cut& i_otherCut):m_sGroupOfVertexes(i_otherCut.m_sGroupOfVertexes)
 ,m_tGroupOfVertexes(i_otherCut.m_tGroupOfVertexes)
 {
 	
 }
-// to delete later?
-Cut::Cut(Cut&& i_other)
-{
 
-}
 
 Cut::~Cut()
 {
@@ -38,6 +29,7 @@ void Cut::showCut()
 		cout << " Error! S is empty";
 		exit(1);
 	}
+	// printing S group
 	while(printerNode){
 		cout << printerNode->getData()+1;
 		if (printerNode->getNext())
@@ -54,9 +46,10 @@ void Cut::showCut()
 	if (!(printerNode))
 	{
 		cout << " Error! T group  is empty";
-	//	exit(1); just for debugging!
+		exit(1); 
 	}
 	cout << "  T = ";
+	// printing T group
 	while(printerNode)
 	{
 		cout << printerNode->getData()+1;

@@ -5,18 +5,21 @@
 FlowNetwork::FlowNetwork():m_graph(),m_minCut()
 {
      m_maxFlow  = m_currentFlow=0;
+     m_numOfiterations = 0;
 }
 
 FlowNetwork::FlowNetwork(Graph i_graph, int i_maxflow, int i_currentflow):m_graph(i_graph),m_minCut()
 {
      m_maxFlow = i_maxflow;
      m_currentFlow = i_currentflow;
+     m_numOfiterations = 0;
 }
 
 FlowNetwork::FlowNetwork(FlowNetwork& i_otherFlowNetwork):m_graph(i_otherFlowNetwork.m_graph),m_minCut(i_otherFlowNetwork.m_minCut)
 {
     m_maxFlow = i_otherFlowNetwork.m_maxFlow;
     m_currentFlow =i_otherFlowNetwork.m_currentFlow;
+    m_numOfiterations = i_otherFlowNetwork.m_numOfiterations;
 }
 
 FlowNetwork::~FlowNetwork()
@@ -32,7 +35,7 @@ int* FlowNetwork::BFS(int *i_dArr)
      int* pArr = new int[arrSize];
           for (int i = 0; i < arrSize; i++)
           {
-               i_dArr[i] = INFINITY_VAL;  // init the arr. -1 = infinty
+               i_dArr[i] = INFINITY_VAL;  // init the arr. -1 = infinty to indicate that there is no route between s to this vertex
                pArr[i] = NO_PARENT; // to indicate that there is no parent
           }
           q.enqueue(m_graph.getSvertex());
@@ -85,7 +88,7 @@ int FlowNetwork::findMinCfInRoute(List i_trackFromStoT)
           cout << "Error! there is no Edge in route";
           exit(1);
      }
-     while (tempVertexV)
+     while (tempVertexV) // running through all the list and searching for the minimal CF
      {
          
           if (tempVertexV)
@@ -117,24 +120,26 @@ List FlowNetwork::findRouteFromStoT(int* i_pArr)
      int count = 0;
      while (tempParent != NO_PARENT)
      {
-    
+          // adding form t to his parents , using add node to head so in the end s will be the first and t will be the last
           routeFromStoT.addNodeToHead(tempParent);
           tempParent = i_pArr[tempParent];
           count++;
           if (tempParent==m_graph.getSvertex())
           { 
                routeFromStoT.addNodeToHead(tempParent);
-               break;
+               break; // we need a route that s is his head
           }
           if (count > m_graph.getNumOfVertexes())
           {
                break;
+               // not possible to have a route that longer than number of vertexes in graph
           }
 
      }
      // return List that represent path of vertexes from s to t 
      if (routeFromStoT.getHead()->getData() != m_graph.getSvertex())
      {
+          // no need for a list that s is not the head
           routeFromStoT.makeEmpty();
      }
      delete[] i_pArr;
@@ -149,7 +154,7 @@ void FlowNetwork::increaseFlow(List i_trackFromStoT, int i_flowToIncrease)
      tempVertexU = i_trackFromStoT.getHead();
      if (tempVertexU)
      {
-          tempVertexV = tempVertexU->getNext(); // need to change this delete later. make it readable
+          tempVertexV = tempVertexU->getNext(); 
           if (!tempVertexV)
           {
                cout << "Error! there is no Edge in route";
@@ -183,10 +188,11 @@ int FlowNetwork::fordFulkersonMethodWithBFS()
      int arrSize = m_graph.getNumOfVertexes();
      int* dArr = new int[arrSize];
      int* tempParentsArray = nullptr;
+     // initiating
      tempParentsArray = BFS(dArr);
      List tempRouteFromStoT = findRouteFromStoT(tempParentsArray);
      int tempMinCf = 0;
-     while (!tempRouteFromStoT.isEmpty())
+     while (!tempRouteFromStoT.isEmpty()) // main loop, running as long as there is a route that can improve the flow from s to t
      {
           tempMinCf = findMinCfInRoute(tempRouteFromStoT);
           increaseFlow(tempRouteFromStoT, tempMinCf);
@@ -200,7 +206,7 @@ int FlowNetwork::fordFulkersonMethodWithBFS()
      return m_maxFlow;
 }
 
-int FlowNetwork::getCurrentFlow()
+int FlowNetwork::getCurrentFlow() // collecting from all the edges (s,v) so that v is neighbor of s
 {
      m_currentFlow = 0;
      int sVertex = m_graph.getSvertex();
@@ -211,12 +217,13 @@ int FlowNetwork::getCurrentFlow()
      return m_currentFlow;
 }
 
-int FlowNetwork::fordFulkersonMethodWithDijskstraVaration()
+int FlowNetwork::fordFulkersonMethodWithDijskstraVariation()
 {
      m_numOfiterations = 0;
      int arrSize = m_graph.getNumOfVertexes();
      int* dArr = new int[arrSize];
      int* tempParentsArray = nullptr;
+     // initiating:
      tempParentsArray = DijskstraVarationMethod(dArr);
      List tempRouteFromStoT = findRouteFromStoT(tempParentsArray);
      int tempMinCf = 0;
@@ -229,33 +236,32 @@ int FlowNetwork::fordFulkersonMethodWithDijskstraVaration()
           ++m_numOfiterations;
      }
      m_maxFlow = getCurrentFlow(); //because after the last iteration, the flow is maximal
-    int* tempPArr= BFS(dArr);// memory leak delete later
+    int* tempPArr= BFS(dArr);
     delete[] tempPArr;
      setCut(dArr);// now it is possible to set the minCut.
      delete[]dArr;
 
      return m_maxFlow;
-
 }
 
 int* FlowNetwork::DijskstraVarationMethod(int* i_dArray)
 {
      // creating array in order to create maxHeap 
-     int* pArray = new int[m_graph.getNumOfVertexes()];               //niv 29/7 note: we need to free the array??? no, find RouteFromStoT free's it
-   
+     int* pArray = new int[m_graph.getNumOfVertexes()];               
+     // initiating:
      HeapElement* heapElementsArray = new HeapElement[m_graph.getNumOfVertexes()];
      initialzeSingleSource(heapElementsArray, pArray, i_dArray);
      MaxHeap maxHeap(heapElementsArray,m_graph.getNumOfVertexes());
  
      int tempVertex;
 
-     while (!maxHeap.IsEmpty())
+     while (!maxHeap.IsEmpty()) // main loop
      {
           tempVertex = maxHeap.DeleteMax();
           // for each v that is neighbor of tempVertex
           List neighbors = m_graph.getAdjListByCapacity(tempVertex);
           Node* tempNeighbor = neighbors.getHead();
-          while (tempNeighbor)
+          while (tempNeighbor)// setting the order in the heap between temp vertex and his neighbor
           {
                relax(tempVertex, tempNeighbor->getData(), pArray, maxHeap, i_dArray);
                tempNeighbor = tempNeighbor->getNext();
@@ -267,7 +273,7 @@ int* FlowNetwork::DijskstraVarationMethod(int* i_dArray)
       delete[] heapElementsArray;
      return pArray; 
 }
-
+//setting the ground for Dijkstra algorithm
 void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_pArray,  int* i_dArray)
 {
      for (int i = 0; i < m_graph.getNumOfVertexes(); i++)
@@ -277,8 +283,9 @@ void FlowNetwork::initialzeSingleSource(HeapElement* i_ElementHeapArray, int* i_
           i_dArray[i]=INFINITY_VAL;
           i_pArray[i] = NO_PARENT;
      }
-     i_ElementHeapArray[m_graph.getSvertex()].setkey(INFINITY_INT);// maybe because we use max heap we need to make it something else. delete later
-	 i_dArray[m_graph.getSvertex()] = INFINITY_INT;     //change niv 29.7         added this, it seems we need it
+     i_ElementHeapArray[m_graph.getSvertex()].setkey(INFINITY_INT);
+	 i_dArray[m_graph.getSvertex()] = INFINITY_INT;    
+
  
 }
 
@@ -317,7 +324,7 @@ void FlowNetwork::setCut(int* i_dArray)
      int numOfVertexes = m_graph.getNumOfVertexes();
      for (int i = 0; i < numOfVertexes; i++)
      {
-          if (i_dArray[i] == INFINITY_VAL)
+          if (i_dArray[i] == INFINITY_VAL) // all the vertexes that have no connection to s are in T
           {
                m_minCut.addVertexToT(i);
           }

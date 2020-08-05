@@ -14,44 +14,35 @@ using namespace std;
 // the program will use 2 different searching methods:
 //BFS and with a greedy method
 
+// in the input.txt file, the first four parameters should be represented as numbers by this order exactly, with this newlines:
+// number of Vertexes
+// number of edges
+// s vertex
+// t vertex
+// v vertex u vertex capacity between them - all the edges need to be in this format, each edge with new line
+// s,t has to be more than 0 and less than number of vertexes
+// negative capacity is illegal
+// it has to be a simple graph
 // argc count how much arguments have been sent to main
 // argv is the arguments itself, represented as string
+
 // it's comfortable to debug this program with cmd : Algorithms_project input.txt
 
-// we will save this main for the end of the project, handling with file
-// for the meantime, lets check every bit of code that we write
 
-//void main(int argc, char* argv[])
-//{
-//     
-//     int numOfVertex, numOfAdjes, s, t;
-//     ifstream inFile(argv[1]); // opening file called "input.txt"
-//     inFile >> numOfVertex >> numOfAdjes>> s>> t;  //init those variables
-//     Graph g1(numOfVertex, numOfAdjes, s-1, t-1); // minus 1 for 
-//     int tempV, tempU, tempC;
-//     for (int i = 0; i < numOfAdjes; i++)
-//     {
-//          inFile >> tempV >> tempU >> tempC;
-//          // in the input file the vertex starts from 1. therfor the minus 1
-//          g1.addEdge(tempV-1,tempU-1, tempC);
-//     }
-//     cout <<"num Of Vertex is: " <<numOfVertex << " num Of Adjes is: " 
-//          << numOfAdjes << " s Vertex is: " <<s << " t  Vertex is: " <<t<<endl;
-//     g1.printGraph();
-//     inFile.close();
-//
-//}
 
-void main()
+
+
+
+void main(int argc, char* argv[])
 {
-     const char* fileName = "input29.txt";
+
 
      // checking spelling mistakes:
-     Validator validator1(fileName);
-     validator1.checkWholePageSpellCorrectness();
-     validator1.checkWholePageLogicly();
+     Validator validator(argv[1]);
+     validator.checkWholePageSpellCorrectness();
+     validator.checkWholePageLogicly();
      int numOfVertexes, numOfAdjes, sVertex, tVertex;
-     ifstream inFile(fileName); // opening file called "input.txt"
+     ifstream inFile(argv[1]); // opening file called "input.txt"
      inFile >> numOfVertexes >> numOfAdjes >> sVertex >> tVertex;  //initialize those variables
      Graph g1(numOfVertexes, numOfAdjes, sVertex - 1, tVertex - 1); // minus 1 for 
      int fileInputVertex, fileInputneighbor, fileInputEdgeCapacity;
@@ -61,19 +52,15 @@ void main()
           // in the input file the vertex starts from 1. therefor the minus 1
           g1.addEdgeCapacity(fileInputVertex - 1, fileInputneighbor - 1, fileInputEdgeCapacity);
      }
-             cout <<"number Of Vertexes is: " <<numOfVertexes <<
-                  " number Of edges is: "
-                  << numOfAdjes << " s Vertex is: " << sVertex
-                  << " t  Vertex is: " << tVertex <<endl;
-             g1.printGraph();
+
      FlowNetwork flow1(g1);
          cout << "BFS Method:\n";
 
          flow1.fordFulkersonMethodWithBFS();
          flow1.printFlowNetwork();
          FlowNetwork flow2(g1);
-         flow2.fordFulkersonMethodWithDijskstraVaration();
+         flow2.fordFulkersonMethodWithDijskstraVariation();
          cout << "Greedy Method:\n";
          flow2.printFlowNetwork();
-
+         inFile.close();
 }
