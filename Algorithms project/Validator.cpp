@@ -133,7 +133,7 @@ void Validator::checkWholePageSpellCorrectness()
      }
      if (numCounter < 4)
      {
-          cout << "Error! there is less then 4 numbers in an input row" << endl;
+          cout << "Error! there is less then 4 numbers in the first 4 rows" << endl;
           exit(1);
      }
      int numCounterInLine = 0;
