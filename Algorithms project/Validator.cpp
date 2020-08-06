@@ -51,6 +51,11 @@ void Validator::checkWholePageLogicly()
                cout << "Error! no self loops, it's a simple graph";
                exit(1);
           }
+          if (  fileInputneighbor> numOfVertexes || fileInputVertex > numOfVertexes)
+          {
+               cout << "Error! no such vertexes exist";
+               exit(1);
+          }
           if (fileInputEdgeCapacity == 0)
           {
                cout << "Error! no 0 capacity in this project";
